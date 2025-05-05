@@ -1,0 +1,370 @@
+/* 
+ * Emma Frost Photography 
+ * Theme CSS Stylesheet
+ * Light/dark theme support based on system preferences with manual toggle
+ */
+
+/* Theme Toggle System */
+html {
+    transition: color-scheme 0.3s ease;
+  }
+  
+  html.light-mode {
+    color-scheme: light;
+  }
+  
+  html.dark-mode {
+    color-scheme: dark;
+  }
+  
+  /* System Preference Detection */
+  @media (prefers-color-scheme: dark) {
+    :root:not(.light-mode) {
+      --primary-color: #8ca36b;
+      --accent-color: #d1b393;
+      --text-color: #e0dcd3;
+      --secondary-text-color: #b0b8a9;
+      --heading-color: #c4d1b5;
+      --bg-color: #1e2519;
+      --section-alt-bg: #283321;
+      
+      --header-bg: rgba(30, 37, 25, 0.9);
+      --header-bg-scrolled: rgba(30, 37, 25, 0.95);
+      --footer-bg: #1a1f15;
+      --footer-text-color: #e0dcd3;
+      --footer-heading-color: #c4d1b5;
+      --footer-link-color: #b0b8a9;
+      --footer-border-color: rgba(255, 255, 255, 0.1);
+      
+      --link-color: #8ca36b;
+      --link-hover-color: #d1b393;
+      --nav-link-color: #c4d1b5;
+      --nav-dropdown-link-color: #b0b8a9;
+      
+      --primary-btn-bg: #8ca36b;
+      --primary-btn-hover-bg: #7a8f5c;
+      
+      --secondary-btn-text: #8ca36b;
+      --secondary-btn-border: #8ca36b;
+      --secondary-btn-hover-bg: #8ca36b;
+      
+      --card-bg: #283321;
+      --dropdown-bg: #283321;
+      --form-bg: #283321;
+      --notes-bg: #283321;
+      --testimonial-bg: #1e2519;
+      --page-header-bg: #283321;
+      --gallery-header-bg: #1a1f15;
+      --cta-bg: #1a1f15;
+      
+      --icon-bg: rgba(140, 163, 107, 0.1);
+      --icon-color: #8ca36b;
+      
+      --label-color: #c4d1b5;
+      --input-bg: #1a1f15;
+      --input-color: #e0dcd3;
+      --input-border: #3c4a2f;
+      
+      --filter-btn-bg: #1a1f15;
+      --filter-btn-color: #8ca36b;
+      --filter-btn-border: #3c4a2f;
+      --filter-btn-active-bg: #8ca36b;
+      --filter-btn-active-color: #1a1f15;
+      --filter-btn-active-border: #8ca36b;
+      
+      --border-color: #3c4a2f;
+      --border-color-light: #3c4a2f;
+      --pricing-header-bg: #1a1f15;
+      --pricing-header-color: #e0dcd3;
+      --pricing-header-title-color: #c4d1b5;
+      --blockquote-bg: #1a1f15;
+      --blockquote-color: #e0dcd3;
+      --testimonial-nav-bg: rgba(140, 163, 107, 0.1);
+      --testimonial-nav-color: #8ca36b;
+      --testimonial-nav-hover-bg: #8ca36b;
+      --testimonial-nav-hover-color: #1a1f15;
+      --hamburger-color: #c4d1b5;
+      --theme-toggle-color: #c4d1b5;
+      --theme-toggle-hover-bg: rgba(196, 209, 181, 0.1);
+      --mobile-menu-bg: #1e2519;
+      --mobile-menu-border: #3c4a2f;
+    }
+    
+    :root:not(.light-mode) .logo .logo-light {
+      display: none;
+    }
+    
+    :root:not(.light-mode) .logo .logo-dark {
+      display: block;
+    }
+    
+    :root:not(.light-mode) .sun-icon {
+      display: none;
+    }
+    
+    :root:not(.light-mode) .moon-icon {
+      display: block;
+    }
+  }
+  
+  /* Manual Light Mode Override */
+  .light-mode {
+    --primary-color: #667c4a;
+    --primary-color-rgb: 102, 124, 74;
+    --accent-color: #bb9b79;
+    --accent-color-rgb: 187, 155, 121;
+    --text-color: #333333;
+    --secondary-text-color: #666666;
+    --heading-color: #3c4a2f;
+    --bg-color: #f9f7f4;
+    --section-alt-bg: #f1efe9;
+    
+    --header-bg: rgba(249, 247, 244, 0.9);
+    --header-bg-scrolled: rgba(249, 247, 244, 0.95);
+    --footer-bg: #3c4a2f;
+    --footer-text-color: #f9f7f4;
+    --footer-secondary-text-color: #b0b8a9;
+    --footer-heading-color: #f9f7f4;
+    --footer-link-color: #f1efe9;
+    --footer-link-hover-color: #bb9b79;
+    --footer-border-color: rgba(255, 255, 255, 0.1);
+    
+    --link-color: #667c4a;
+    --link-hover-color: #bb9b79;
+    --nav-link-color: #3c4a2f;
+    --nav-dropdown-link-color: #555;
+    
+    --primary-btn-bg: #667c4a;
+    --primary-btn-text: #fff;
+    --primary-btn-hover-bg: #5a6e42;
+    
+    --secondary-btn-text: #667c4a;
+    --secondary-btn-border: #667c4a;
+    --secondary-btn-hover-bg: #667c4a;
+    --secondary-btn-hover-text: #fff;
+    --secondary-btn-hover-border: #667c4a;
+    
+    --card-bg: #fff;
+    --dropdown-bg: #fff;
+    --form-bg: #fff;
+    --notes-bg: #f1efe9;
+    --testimonial-bg: #f9f7f4;
+    --page-header-bg: #f1efe9;
+    --gallery-header-bg: #e9e6de;
+    --cta-bg: #3c4a2f;
+    --cta-text-color: #fff;
+    
+    --icon-bg: rgba(102, 124, 74, 0.1);
+    --icon-color: #667c4a;
+    --social-icon-bg: rgba(255, 255, 255, 0.1);
+    --social-icon-color: #fff;
+    --social-icon-hover-bg: #bb9b79;
+    --social-icon-hover-color: #fff;
+    
+    --label-color: #3c4a2f;
+    --input-bg: #fff;
+    --input-color: #333;
+    --input-border: #ddd;
+    --input-focus-border: #667c4a;
+    --error-color: #d9534f;
+    --error-bg: #f8d7da;
+    --success-color: #5cb85c;
+    --success-bg: #d4edda;
+    
+    --filter-btn-bg: #fff;
+    --filter-btn-color: #667c4a;
+    --filter-btn-border: #ddd;
+    --filter-btn-active-bg: #667c4a;
+    --filter-btn-active-color: #fff;
+    --filter-btn-active-border: #667c4a;
+    
+    --border-color: #e0dcd3;
+    --border-color-light: #eee;
+    --pricing-header-bg: #f1efe9;
+    --pricing-header-color: #3c4a2f;
+    --pricing-header-title-color: #3c4a2f;
+    --blockquote-bg: #f1efe9;
+    --blockquote-color: #555;
+    --testimonial-nav-bg: rgba(102, 124, 74, 0.1);
+    --testimonial-nav-color: #667c4a;
+    --testimonial-nav-hover-bg: #667c4a;
+    --testimonial-nav-hover-color: #fff;
+    --hamburger-color: #3c4a2f;
+    --theme-toggle-color: #667c4a;
+    --theme-toggle-hover-bg: rgba(102, 124, 74, 0.1);
+    --mobile-menu-bg: #f9f7f4;
+    --mobile-menu-border: #e0dcd3;
+    --hero-text-color: #fff;
+  }
+  
+  .light-mode .logo .logo-light {
+    display: block;
+  }
+  
+  .light-mode .logo .logo-dark {
+    display: none;
+  }
+  
+  .light-mode .sun-icon {
+    display: block;
+  }
+  
+  .light-mode .moon-icon {
+    display: none;
+  }
+  
+  /* Manual Dark Mode Override */
+  .dark-mode {
+    --primary-color: #8ca36b;
+    --accent-color: #d1b393;
+    --text-color: #e0dcd3;
+    --secondary-text-color: #b0b8a9;
+    --heading-color: #c4d1b5;
+    --bg-color: #1e2519;
+    --section-alt-bg: #283321;
+    
+    --header-bg: rgba(30, 37, 25, 0.9);
+    --header-bg-scrolled: rgba(30, 37, 25, 0.95);
+    --footer-bg: #1a1f15;
+    --footer-text-color: #e0dcd3;
+    --footer-heading-color: #c4d1b5;
+    --footer-link-color: #b0b8a9;
+    --footer-border-color: rgba(255, 255, 255, 0.1);
+    
+    --link-color: #8ca36b;
+    --link-hover-color: #d1b393;
+    --nav-link-color: #c4d1b5;
+    --nav-dropdown-link-color: #b0b8a9;
+    
+    --primary-btn-bg: #8ca36b;
+    --primary-btn-hover-bg: #7a8f5c;
+    
+    --secondary-btn-text: #8ca36b;
+    --secondary-btn-border: #8ca36b;
+    --secondary-btn-hover-bg: #8ca36b;
+    
+    --card-bg: #283321;
+    --dropdown-bg: #283321;
+    --form-bg: #283321;
+    --notes-bg: #283321;
+    --testimonial-bg: #1e2519;
+    --page-header-bg: #283321;
+    --gallery-header-bg: #1a1f15;
+    --cta-bg: #1a1f15;
+    
+    --icon-bg: rgba(140, 163, 107, 0.1);
+    --icon-color: #8ca36b;
+    
+    --label-color: #c4d1b5;
+    --input-bg: #1a1f15;
+    --input-color: #e0dcd3;
+    --input-border: #3c4a2f;
+    
+    --filter-btn-bg: #1a1f15;
+    --filter-btn-color: #8ca36b;
+    --filter-btn-border: #3c4a2f;
+    --filter-btn-active-bg: #8ca36b;
+    --filter-btn-active-color: #1a1f15;
+    --filter-btn-active-border: #8ca36b;
+    
+    --border-color: #3c4a2f;
+    --border-color-light: #3c4a2f;
+    --pricing-header-bg: #1a1f15;
+    --pricing-header-color: #e0dcd3;
+    --pricing-header-title-color: #c4d1b5;
+    --blockquote-bg: #1a1f15;
+    --blockquote-color: #e0dcd3;
+    --testimonial-nav-bg: rgba(140, 163, 107, 0.1);
+    --testimonial-nav-color: #8ca36b;
+    --testimonial-nav-hover-bg: #8ca36b;
+    --testimonial-nav-hover-color: #1a1f15;
+    --hamburger-color: #c4d1b5;
+    --theme-toggle-color: #c4d1b5;
+    --theme-toggle-hover-bg: rgba(196, 209, 181, 0.1);
+    --mobile-menu-bg: #1e2519;
+    --mobile-menu-border: #3c4a2f;
+  }
+  
+  .dark-mode .logo .logo-light {
+    display: none;
+  }
+  
+  .dark-mode .logo .logo-dark {
+    display: block;
+  }
+  
+  .dark-mode .sun-icon {
+    display: none;
+  }
+  
+  .dark-mode .moon-icon {
+    display: block;
+  }
+  
+  /* Theme Transition Effects */
+  body,
+  .header-container,
+  .nav-links a,
+  .dropdown-menu,
+  .logo img,
+  .cta-button,
+  input, textarea, select,
+  .social-links a,
+  .pricing-card,
+  .approach-card,
+  .gallery-item,
+  .category-card,
+  .feature-card {
+    transition: all 0.3s ease;
+  }
+  
+  /* Print Styles - Ensure proper rendering when printing */
+  @media print {
+    body {
+      background-color: #fff;
+      color: #000;
+    }
+    
+    .header-container, 
+    .footer-container,
+    .cta-section {
+      display: none;
+    }
+    
+    main {
+      margin: 0;
+      padding: 0;
+    }
+    
+    a {
+      color: #000;
+      text-decoration: underline;
+    }
+    
+    .category-card,
+    .pricing-card,
+    .approach-card,
+    .gallery-item {
+      break-inside: avoid;
+      page-break-inside: avoid;
+    }
+    
+    .slide-content {
+      position: relative;
+      color: #000;
+      text-shadow: none;
+    }
+    
+    h1, h2, h3, h4, h5, h6 {
+      color: #000;
+      page-break-after: avoid;
+    }
+    
+    img {
+      max-width: 100% !important;
+    }
+    
+    @page {
+      margin: 2cm;
+    }
+  }
