@@ -1,0 +1,21 @@
+{
+    "name": "photography-website",
+    "version": "1.0.0",
+    "description": "Photography website with modern farmhouse aesthetic",
+    "main": "index.js",
+    "scripts": {
+      "build": "node generate-image-arrays.js",
+      "predeploy": "npm run build",
+      "deploy": "gh-pages -d ."
+    },
+    "keywords": [
+      "photography",
+      "portfolio",
+      "gallery"
+    ],
+    "author": "Your Name",
+    "license": "MIT",
+    "devDependencies": {
+      "gh-pages": "^6.0.0"
+    }
+  }

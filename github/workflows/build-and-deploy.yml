@@ -1,0 +1,54 @@
+name: Build and Deploy Photography Website
+
+on:
+  push:
+    branches: [ main ]
+    paths:
+      - 'assets/images/**'  # Trigger on changes to image directories
+      - '.github/workflows/build-and-deploy.yml'  # Trigger when workflow itself is updated
+  
+  # Allow manual triggering from GitHub Actions tab
+  workflow_dispatch:
+
+jobs:
+  build-and-deploy:
+    runs-on: ubuntu-latest
+    
+    steps:
+      # Checkout the repository
+      - name: Checkout repository
+        uses: actions/checkout@v3
+        with:
+          token: ${{ secrets.GITHUB_TOKEN }}
+      
+      # Setup Node.js
+      - name: Setup Node.js
+        uses: actions/setup-node@v3
+        with:
+          node-version: '18'
+          cache: 'npm'
+      
+      # Install dependencies
+      - name: Install dependencies
+        run: npm ci
+      
+      # Run the build script to update image arrays
+      - name: Generate image arrays
+        run: node generate-image-arrays.js
+      
+      # Commit changes back to the repository if needed
+      - name: Commit changes
+        run: |
+          git config --local user.email "github-actions[bot]@users.noreply.github.com"
+          git config --local user.name "github-actions[bot]"
+          git add assets/js/simple-slideshow.js assets/js/simple-gallery.js
+          git commit -m "Update image arrays automatically [skip ci]" || echo "No changes to commit"
+          git push
+      
+      # Deploy to GitHub Pages
+      - name: Deploy to GitHub Pages
+        uses: JamesIves/github-pages-deploy-action@v4
+        with:
+          folder: .     # Deploy the entire repository
+          branch: gh-pages   # The branch the action should deploy to
+          clean: true   # Automatically remove deleted files from the deploy branch
