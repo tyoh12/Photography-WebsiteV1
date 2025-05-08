@@ -92,42 +92,12 @@
         <!-- Hero Slideshow Section -->
         <section id="hero-slideshow" class="hero-section">
             <div class="slideshow-container">
-                <div class="slide fade">
-                    <img src="assets/images/slideshow/slide1.jpg" alt="Serene landscape at golden hour">
-                    <div class="slide-content">
-                        <h1>Capturing Life's Beautiful Moments</h1>
-                        <p>Modern farmhouse-inspired photography with a timeless touch</p>
-                        <a href="contact.html" class="cta-button">Book a Session</a>
-                    </div>
-                </div>
+                <!-- Slides will be dynamically inserted here by JavaScript -->
                 
-                <div class="slide fade">
-                    <img src="assets/images/slideshow/slide2.jpg" alt="Family portrait in a rustic setting">
-                    <div class="slide-content">
-                        <h1>Family Memories That Last Forever</h1>
-                        <p>Authentic portrait photography in natural settings</p>
-                        <a href="galleries/portraits/families.html" class="cta-button">View Portfolio</a>
-                    </div>
-                </div>
-                
-                <div class="slide fade">
-                    <img src="assets/images/slideshow/slide3.jpg" alt="Wildlife photography featuring a majestic deer">
-                    <div class="slide-content">
-                        <h1>The Beauty of the Natural World</h1>
-                        <p>Stunning wildlife and landscape photography</p>
-                        <a href="galleries/wildlife.html" class="cta-button">Explore Gallery</a>
-                    </div>
-                </div>
-                
-                <!-- Slideshow Navigation -->
-                <a class="prev" onclick="plusSlides(-1)">&#10094;</a>
-                <a class="next" onclick="plusSlides(1)">&#10095;</a>
-                
-                <!-- Slideshow Indicators -->
-                <div class="slideshow-indicators">
-                    <span class="indicator" onclick="currentSlide(1)"></span>
-                    <span class="indicator" onclick="currentSlide(2)"></span>
-                    <span class="indicator" onclick="currentSlide(3)"></span>
+                <!-- Loading State -->
+                <div class="loading-container">
+                    <div class="loading-spinner"></div>
+                    <p>Loading beautiful images...</p>
                 </div>
             </div>
         </section>
@@ -333,61 +303,11 @@
     </footer>
     
     <!-- JavaScript -->
-    <script src="assets/js/slideshow.js" defer></script>
+    <script src="assets/js/simple-slideshow.js" defer></script>
     <script src="assets/js/navigation.js" defer></script>
     <script src="assets/js/common.js" defer></script>
     <script src="assets/js/theme-toggle.js" defer></script>
     <script>
-        // Initialize slideshow
-        let slideIndex = 1;
-        showSlides(slideIndex);
-        
-        // Auto-advance slideshow
-        let slideshowInterval = setInterval(() => {
-            plusSlides(1);
-        }, 5000);
-        
-        function plusSlides(n) {
-            showSlides(slideIndex += n);
-            resetSlideshowInterval();
-        }
-        
-        function currentSlide(n) {
-            showSlides(slideIndex = n);
-            resetSlideshowInterval();
-        }
-        
-        function showSlides(n) {
-            let i;
-            let slides = document.getElementsByClassName("slide");
-            let indicators = document.getElementsByClassName("indicator");
-            
-            if (n > slides.length) {
-                slideIndex = 1;
-            }
-            if (n < 1) {
-                slideIndex = slides.length;
-            }
-            
-            for (i = 0; i < slides.length; i++) {
-                slides[i].style.display = "none";
-            }
-            
-            for (i = 0; i < indicators.length; i++) {
-                indicators[i].className = indicators[i].className.replace(" active", "");
-            }
-            
-            slides[slideIndex - 1].style.display = "block";
-            indicators[slideIndex - 1].className += " active";
-        }
-        
-        function resetSlideshowInterval() {
-            clearInterval(slideshowInterval);
-            slideshowInterval = setInterval(() => {
-                plusSlides(1);
-            }, 5000);
-        }
-        
         // Testimonial carousel
         let testimonialIndex = 1;
         showTestimonials(testimonialIndex);
@@ -417,6 +337,58 @@
             
             testimonials[testimonialIndex - 1].style.display = "block";
         }
+
+        // Add loading indicator styles
+        document.head.insertAdjacentHTML('beforeend', `
+            <style>
+                .loading-container {
+                    display: flex;
+                    flex-direction: column;
+                    justify-content: center;
+                    align-items: center;
+                    height: 100%;
+                    width: 100%;
+                    position: absolute;
+                    top: 0;
+                    left: 0;
+                    background-color: rgba(249, 247, 244, 0.7);
+                    z-index: 5;
+                }
+                
+                .dark-mode .loading-container {
+                    background-color: rgba(30, 37, 25, 0.7);
+                }
+                
+                .loading-spinner {
+                    border: 5px solid rgba(0, 0, 0, 0.1);
+                    border-radius: 50%;
+                    border-top: 5px solid var(--accent-color);
+                    width: 50px;
+                    height: 50px;
+                    animation: spin 1s linear infinite;
+                    margin-bottom: 1rem;
+                }
+                
+                @keyframes spin {
+                    0% { transform: rotate(0deg); }
+                    100% { transform: rotate(360deg); }
+                }
+            </style>
+        `);
+
+        // Function to hide loading state when slideshow is ready
+        function hideLoading() {
+            const loadingContainer = document.querySelector('.loading-container');
+            if (loadingContainer) {
+                loadingContainer.style.display = 'none';
+            }
+        }
+
+        // Check if slideshow is initialized
+        document.addEventListener('slideshowInitialized', hideLoading);
+        
+        // Fallback to hide loader after a timeout
+        setTimeout(hideLoading, 3000);
     </script>
 </body>
 </html>

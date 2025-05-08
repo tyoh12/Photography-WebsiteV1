@@ -111,178 +111,17 @@
             </div>
         </section>
         
-        <!-- Gallery Categories -->
-        <section class="gallery-categories">
-            <div class="container">
-                <div class="category-filters">
-                    <button class="filter-button active" data-filter="all">All</button>
-                    <button class="filter-button" data-filter="mammals">Mammals</button>
-                    <button class="filter-button" data-filter="birds">Birds</button>
-                    <button class="filter-button" data-filter="underwater">Underwater</button>
-                    <button class="filter-button" data-filter="insects">Insects</button>
-                    <button class="filter-button" data-filter="seasonal">Seasonal</button>
-                </div>
-            </div>
-        </section>
-        
         <!-- Gallery Grid -->
         <section class="gallery-grid">
             <div class="container">
+                <!-- Loading Indicator -->
+                <div class="loading-container">
+                    <div class="loading-spinner"></div>
+                    <p>Loading gallery images...</p>
+                </div>
+                
                 <div class="masonry-grid">
-                    <!-- Mammals -->
-                    <div class="gallery-item mammals" data-category="mammals">
-                        <a href="../../assets/images/galleries/wildlife/moose-fog.jpg" class="lightbox-trigger">
-                            <img src="../../assets/images/galleries/wildlife/moose-fog-thumb.jpg" alt="Bull moose standing in misty lake at dawn" loading="lazy">
-                            <div class="gallery-caption">
-                                <h3>Monarch of the North</h3>
-                                <p>Bull Moose, Moosehead Lake</p>
-                            </div>
-                        </a>
-                    </div>
-                    
-                    <div class="gallery-item mammals" data-category="mammals">
-                        <a href="../../assets/images/galleries/wildlife/fox-snow.jpg" class="lightbox-trigger">
-                            <img src="../../assets/images/galleries/wildlife/fox-snow-thumb.jpg" alt="Red fox hunting in fresh snow" loading="lazy">
-                            <div class="gallery-caption">
-                                <h3>Winter Hunter</h3>
-                                <p>Red Fox, Acadia National Park</p>
-                            </div>
-                        </a>
-                    </div>
-                    
-                    <div class="gallery-item mammals seasonal" data-category="mammals seasonal">
-                        <a href="../../assets/images/galleries/wildlife/deer-autumn.jpg" class="lightbox-trigger">
-                            <img src="../../assets/images/galleries/wildlife/deer-autumn-thumb.jpg" alt="White-tailed deer in autumn forest" loading="lazy">
-                            <div class="gallery-caption">
-                                <h3>Autumn Grace</h3>
-                                <p>White-tailed Deer, Kennebec Highlands</p>
-                            </div>
-                        </a>
-                    </div>
-                    
-                    <!-- Birds -->
-                    <div class="gallery-item birds" data-category="birds">
-                        <a href="../../assets/images/galleries/wildlife/eagle-catch.jpg" class="lightbox-trigger">
-                            <img src="../../assets/images/galleries/wildlife/eagle-catch-thumb.jpg" alt="Bald eagle catching fish from lake" loading="lazy">
-                            <div class="gallery-caption">
-                                <h3>Perfect Strike</h3>
-                                <p>Bald Eagle, Penobscot River</p>
-                            </div>
-                        </a>
-                    </div>
-                    
-                    <div class="gallery-item birds" data-category="birds">
-                        <a href="../../assets/images/galleries/wildlife/puffin-portrait.jpg" class="lightbox-trigger">
-                            <img src="../../assets/images/galleries/wildlife/puffin-portrait-thumb.jpg" alt="Atlantic puffin with fish in its beak" loading="lazy">
-                            <div class="gallery-caption">
-                                <h3>Clown of the Sea</h3>
-                                <p>Atlantic Puffin, Machias Seal Island</p>
-                            </div>
-                        </a>
-                    </div>
-                    
-                    <div class="gallery-item birds" data-category="birds">
-                        <a href="../../assets/images/galleries/wildlife/great-blue-heron.jpg" class="lightbox-trigger">
-                            <img src="../../assets/images/galleries/wildlife/great-blue-heron-thumb.jpg" alt="Great blue heron hunting in marsh at sunrise" loading="lazy">
-                            <div class="gallery-caption">
-                                <h3>Patient Hunter</h3>
-                                <p>Great Blue Heron, Scarborough Marsh</p>
-                            </div>
-                        </a>
-                    </div>
-                    
-                    <!-- Underwater -->
-                    <div class="gallery-item underwater" data-category="underwater">
-                        <a href="../../assets/images/galleries/wildlife/harbor-seal.jpg" class="lightbox-trigger">
-                            <img src="../../assets/images/galleries/wildlife/harbor-seal-thumb.jpg" alt="Harbor seal underwater with rays of light" loading="lazy">
-                            <div class="gallery-caption">
-                                <h3>Curious Neighbor</h3>
-                                <p>Harbor Seal, Casco Bay</p>
-                            </div>
-                        </a>
-                    </div>
-                    
-                    <div class="gallery-item underwater" data-category="underwater">
-                        <a href="../../assets/images/galleries/wildlife/atlantic-salmon.jpg" class="lightbox-trigger">
-                            <img src="../../assets/images/galleries/wildlife/atlantic-salmon-thumb.jpg" alt="Atlantic salmon swimming upstream" loading="lazy">
-                            <div class="gallery-caption">
-                                <h3>Against the Current</h3>
-                                <p>Atlantic Salmon, Penobscot River</p>
-                            </div>
-                        </a>
-                    </div>
-                    
-                    <div class="gallery-item underwater" data-category="underwater">
-                        <a href="../../assets/images/galleries/wildlife/tide-pool.jpg" class="lightbox-trigger">
-                            <img src="../../assets/images/galleries/wildlife/tide-pool-thumb.jpg" alt="Colorful tide pool ecosystem with starfish and anemones" loading="lazy">
-                            <div class="gallery-caption">
-                                <h3>Hidden World</h3>
-                                <p>Tide Pool Ecosystem, Acadia National Park</p>
-                            </div>
-                        </a>
-                    </div>
-                    
-                    <!-- Insects -->
-                    <div class="gallery-item insects" data-category="insects">
-                        <a href="../../assets/images/galleries/wildlife/monarch-milkweed.jpg" class="lightbox-trigger">
-                            <img src="../../assets/images/galleries/wildlife/monarch-milkweed-thumb.jpg" alt="Monarch butterfly on milkweed flower" loading="lazy">
-                            <div class="gallery-caption">
-                                <h3>Fragile Traveler</h3>
-                                <p>Monarch Butterfly, Rachel Carson Wildlife Refuge</p>
-                            </div>
-                        </a>
-                    </div>
-                    
-                    <div class="gallery-item insects seasonal" data-category="insects seasonal">
-                        <a href="../../assets/images/galleries/wildlife/dragonfly-summer.jpg" class="lightbox-trigger">
-                            <img src="../../assets/images/galleries/wildlife/dragonfly-summer-thumb.jpg" alt="Dragonfly perched on grass seed head in summer light" loading="lazy">
-                            <div class="gallery-caption">
-                                <h3>Summer Sentinel</h3>
-                                <p>Dragonfly, Belgrade Lakes</p>
-                            </div>
-                        </a>
-                    </div>
-                    
-                    <div class="gallery-item insects" data-category="insects">
-                        <a href="../../assets/images/galleries/wildlife/luna-moth.jpg" class="lightbox-trigger">
-                            <img src="../../assets/images/galleries/wildlife/luna-moth-thumb.jpg" alt="Luna moth on tree bark in early morning" loading="lazy">
-                            <div class="gallery-caption">
-                                <h3>Emerald Wings</h3>
-                                <p>Luna Moth, Bigelow Preserve</p>
-                            </div>
-                        </a>
-                    </div>
-                    
-                    <!-- Seasonal -->
-                    <div class="gallery-item seasonal" data-category="seasonal">
-                        <a href="../../assets/images/galleries/wildlife/snowshoe-hare.jpg" class="lightbox-trigger">
-                            <img src="../../assets/images/galleries/wildlife/snowshoe-hare-thumb.jpg" alt="Snowshoe hare in winter white coat" loading="lazy">
-                            <div class="gallery-caption">
-                                <h3>Winter's Disguise</h3>
-                                <p>Snowshoe Hare, Baxter State Park</p>
-                            </div>
-                        </a>
-                    </div>
-                    
-                    <div class="gallery-item seasonal" data-category="seasonal">
-                        <a href="../../assets/images/galleries/wildlife/fawn-spring.jpg" class="lightbox-trigger">
-                            <img src="../../assets/images/galleries/wildlife/fawn-spring-thumb.jpg" alt="Newborn fawn in spring meadow with wildflowers" loading="lazy">
-                            <div class="gallery-caption">
-                                <h3>New Beginnings</h3>
-                                <p>White-tailed Deer Fawn, Bradbury Mountain</p>
-                            </div>
-                        </a>
-                    </div>
-                    
-                    <div class="gallery-item seasonal" data-category="seasonal">
-                        <a href="../../assets/images/galleries/wildlife/loon-family.jpg" class="lightbox-trigger">
-                            <img src="../../assets/images/galleries/wildlife/loon-family-thumb.jpg" alt="Common loon with chick riding on parent's back" loading="lazy">
-                            <div class="gallery-caption">
-                                <h3>Summer Voyagers</h3>
-                                <p>Common Loon Family, Rangeley Lake</p>
-                            </div>
-                        </a>
-                    </div>
+                    <!-- Gallery items will be dynamically inserted here by JavaScript -->
                 </div>
             </div>
         </section>
@@ -291,14 +130,10 @@
         <div id="lightbox" class="lightbox">
             <div class="lightbox-content">
                 <span class="close-lightbox">&times;</span>
-                <img id="lightbox-image" src="" alt="">
-                <div id="lightbox-caption">
-                    <h3></h3>
-                    <p></p>
-                </div>
+                <img id="lightbox-image" src="" alt="Wildlife photograph in lightbox">
                 <div class="lightbox-controls">
-                    <button class="lightbox-prev">&#10094;</button>
-                    <button class="lightbox-next">&#10095;</button>
+                    <button class="lightbox-prev" aria-label="Previous image">&#10094;</button>
+                    <button class="lightbox-next" aria-label="Next image">&#10095;</button>
                 </div>
             </div>
         </div>
@@ -451,117 +286,63 @@
     </footer>
     
     <!-- JavaScript -->
+    <script src="../../assets/js/simple-gallery.js" defer></script>
     <script src="../../assets/js/navigation.js" defer></script>
     <script src="../../assets/js/common.js" defer></script>
     <script src="../../assets/js/theme-toggle.js" defer></script>
     <script>
-        // Gallery Filter Functionality
-        document.addEventListener('DOMContentLoaded', function() {
-            const filterButtons = document.querySelectorAll('.filter-button');
-            const galleryItems = document.querySelectorAll('.gallery-item');
-            
-            filterButtons.forEach(button => {
-                button.addEventListener('click', function() {
-                    const filterValue = this.getAttribute('data-filter');
-                    
-                    // Active button state
-                    filterButtons.forEach(btn => btn.classList.remove('active'));
-                    this.classList.add('active');
-                    
-                    // Filter gallery items
-                    galleryItems.forEach(item => {
-                        if (filterValue === 'all' || item.classList.contains(filterValue)) {
-                            item.style.display = 'block';
-                        } else {
-                            item.style.display = 'none';
-                        }
-                    });
-                });
-            });
-            
-            // Lightbox Functionality
-            const lightbox = document.getElementById('lightbox');
-            const lightboxImage = document.getElementById('lightbox-image');
-            const lightboxCaption = document.getElementById('lightbox-caption');
-            const lightboxClose = document.querySelector('.close-lightbox');
-            const lightboxTriggers = document.querySelectorAll('.lightbox-trigger');
-            const prevButton = document.querySelector('.lightbox-prev');
-            const nextButton = document.querySelector('.lightbox-next');
-            
-            let currentIndex = 0;
-            const lightboxItems = [];
-            
-            // Populate lightbox items array
-            lightboxTriggers.forEach((trigger, index) => {
-                const imageUrl = trigger.getAttribute('href');
-                const captionTitle = trigger.querySelector('.gallery-caption h3').textContent;
-                const captionText = trigger.querySelector('.gallery-caption p').textContent;
-                
-                lightboxItems.push({
-                    url: imageUrl,
-                    title: captionTitle,
-                    caption: captionText
-                });
-                
-                trigger.addEventListener('click', function(e) {
-                    e.preventDefault();
-                    openLightbox(index);
-                });
-            });
-            
-            function openLightbox(index) {
-                currentIndex = index;
-                updateLightboxContent();
-                lightbox.style.display = 'flex';
-                document.body.style.overflow = 'hidden'; // Prevent scrolling
-            }
-            
-            function updateLightboxContent() {
-                const item = lightboxItems[currentIndex];
-                lightboxImage.src = item.url;
-                lightboxImage.alt = item.title;
-                lightboxCaption.querySelector('h3').textContent = item.title;
-                lightboxCaption.querySelector('p').textContent = item.caption;
-            }
-            
-            function closeLightbox() {
-                lightbox.style.display = 'none';
-                document.body.style.overflow = ''; // Restore scrolling
-            }
-            
-            lightboxClose.addEventListener('click', closeLightbox);
-            
-            lightbox.addEventListener('click', function(e) {
-                if (e.target === lightbox) {
-                    closeLightbox();
+        // Add loading indicator styles
+        document.head.insertAdjacentHTML('beforeend', `
+            <style>
+                .loading-container {
+                    display: flex;
+                    flex-direction: column;
+                    justify-content: center;
+                    align-items: center;
+                    height: 200px;
+                    width: 100%;
+                    margin: 2rem 0;
                 }
-            });
-            
-            prevButton.addEventListener('click', function() {
-                currentIndex = (currentIndex - 1 + lightboxItems.length) % lightboxItems.length;
-                updateLightboxContent();
-            });
-            
-            nextButton.addEventListener('click', function() {
-                currentIndex = (currentIndex + 1) % lightboxItems.length;
-                updateLightboxContent();
-            });
-            
-            // Keyboard navigation for lightbox
-            document.addEventListener('keydown', function(e) {
-                if (lightbox.style.display === 'flex') {
-                    if (e.key === 'Escape') {
-                        closeLightbox();
-                    } else if (e.key === 'ArrowLeft') {
-                        currentIndex = (currentIndex - 1 + lightboxItems.length) % lightboxItems.length;
-                        updateLightboxContent();
-                    } else if (e.key === 'ArrowRight') {
-                        currentIndex = (currentIndex + 1) % lightboxItems.length;
-                        updateLightboxContent();
-                    }
+                
+                .loading-spinner {
+                    border: 5px solid rgba(0, 0, 0, 0.1);
+                    border-radius: 50%;
+                    border-top: 5px solid var(--accent-color);
+                    width: 50px;
+                    height: 50px;
+                    animation: spin 1s linear infinite;
+                    margin-bottom: 1rem;
                 }
-            });
-        });
+                
+                @keyframes spin {
+                    0% { transform: rotate(0deg); }
+                    100% { transform: rotate(360deg); }
+                }
+                
+                .dark-mode .loading-container {
+                    color: var(--text-color);
+                }
+                
+                .dark-mode .loading-spinner {
+                    border-color: rgba(255, 255, 255, 0.1);
+                    border-top-color: var(--accent-color);
+                }
+            </style>
+        `);
+
+        // Function to hide loading when gallery is ready
+        function hideLoading() {
+            const loadingContainer = document.querySelector('.loading-container');
+            if (loadingContainer) {
+                loadingContainer.style.display = 'none';
+            }
+        }
+
+        // Check if gallery is initialized
+        document.addEventListener('galleryInitialized', hideLoading);
+        
+        // Fallback to hide loader after a timeout
+        setTimeout(hideLoading, 3000);
     </script>
 </body>
 </html>
