@@ -1,8 +1,8 @@
 /**
  * Generate Image Arrays Script
  * 
- * This script automatically scans image directories and generates JavaScript arrays
- * for the slideshow and gallery pages of the photography website.
+ * This script automatically scans image directories and generates JavaScript files
+ * with image arrays for the slideshow and gallery pages.
  * 
  * Usage: node generate-image-arrays.js
  */
@@ -12,21 +12,22 @@ const path = require('path');
 
 // Configuration
 const config = {
-    // Base directory for assets
-    baseDir: path.join(__dirname, 'assets'),
+    // Base directories
+    baseDir: path.join(__dirname),
+    outputDir: path.join(__dirname, 'assets', 'js'),
     
     // Slideshow configuration
     slideshow: {
-        imageDir: path.join(__dirname, 'assets/images/slideshow'),
-        outputFile: path.join(__dirname, 'assets/js/simple-slideshow.js'),
-        templateFile: path.join(__dirname, 'assets/js/templates/slideshow-template.js')
+        imageDir: path.join(__dirname, 'assets', 'images', 'slideshow'),
+        outputFile: path.join(__dirname, 'assets', 'js', 'simple-slideshow.js'),
+        templateFile: path.join(__dirname, 'assets', 'js', 'slideshow-template.js')
     },
     
     // Gallery configuration
     gallery: {
-        baseImageDir: path.join(__dirname, 'assets/images/galleries'),
-        outputFile: path.join(__dirname, 'assets/js/simple-gallery.js'),
-        templateFile: path.join(__dirname, 'assets/js/templates/gallery-template.js'),
+        baseImageDir: path.join(__dirname, 'assets', 'images', 'galleries'),
+        outputFile: path.join(__dirname, 'assets', 'js', 'simple-gallery.js'),
+        templateFile: path.join(__dirname, 'assets', 'js', 'gallery-template.js'),
         // List of gallery directories to scan
         galleries: [
             'landscapes',
@@ -42,13 +43,28 @@ const config = {
     }
 };
 
-// Make sure the templates directory exists
-try {
-    if (!fs.existsSync(path.join(__dirname, 'assets/js/templates'))) {
-        fs.mkdirSync(path.join(__dirname, 'assets/js/templates'), { recursive: true });
-    }
-} catch (err) {
-    console.error('Error creating templates directory:', err);
+/**
+ * Ensures all required directories exist
+ */
+function ensureDirectories() {
+    const dirs = [
+        path.join(__dirname, 'assets', 'js'),
+        config.slideshow.imageDir,
+        config.gallery.baseImageDir
+    ];
+    
+    // Add gallery subdirectories
+    config.gallery.galleries.forEach(gallery => {
+        dirs.push(path.join(config.gallery.baseImageDir, gallery));
+    });
+    
+    // Ensure each directory exists
+    dirs.forEach(dir => {
+        if (!fs.existsSync(dir)) {
+            console.log(`Creating directory: ${dir}`);
+            fs.mkdirSync(dir, { recursive: true });
+        }
+    });
 }
 
 /**
@@ -70,7 +86,7 @@ function scanDirectory(directory) {
         return files.filter(file => {
             const ext = path.extname(file).toLowerCase();
             return imageExtensions.includes(ext);
-        }).sort(); // Sort alphabetically
+        }).sort();
     } catch (err) {
         console.error(`Error scanning directory ${directory}:`, err);
         return [];
@@ -78,12 +94,12 @@ function scanDirectory(directory) {
 }
 
 /**
- * Generates the slideshow JavaScript file
+ * Creates template files if they don't exist
  */
-function generateSlideshowJS() {
-    // Create template file if it doesn't exist
+function createTemplateFiles() {
+    // Create slideshow template
     if (!fs.existsSync(config.slideshow.templateFile)) {
-        const templateContent = `/**
+        const slideshowTemplate = `/**
  * Simple Photo Slideshow
  * Displays all images in a directory as a slideshow without any text
  */
@@ -107,39 +123,212 @@ document.addEventListener('DOMContentLoaded', function() {
     
     // Initialize slideshow functionality
     initializeSlideshow(config.slideDuration);
+    
+    // Dispatch event indicating slideshow is initialized
+    document.dispatchEvent(new Event('slideshowInitialized'));
 });
 
-// Rest of the slideshow JS functions...
-`;
-        fs.writeFileSync(config.slideshow.templateFile, templateContent);
-        console.log('Created slideshow template file');
+/**
+ * Generate simple slideshow HTML from image list
+ */
+function generateSimpleSlideshow(config) {
+    const slideshowContainer = document.querySelector('.slideshow-container');
+    
+    // Clear existing content except loading screen
+    const loadingScreen = slideshowContainer.querySelector('.loading-container');
+    slideshowContainer.innerHTML = '';
+    if (loadingScreen) {
+        slideshowContainer.appendChild(loadingScreen);
     }
     
-    // Scan slideshow directory
-    const slideshowImages = scanDirectory(config.slideshow.imageDir);
-    console.log(`Found ${slideshowImages.length} slideshow images`);
+    // Create slides
+    config.imageList.forEach((image, index) => {
+        const slideElement = document.createElement('div');
+        slideElement.className = 'slide';
+        if (index === 0) {
+            slideElement.classList.add('active');
+        }
+        
+        // Create simple image slide with minimal text
+        slideElement.innerHTML = \`
+            <img src="\${config.imagePath}\${image}" alt="Slideshow image" 
+                 onerror="this.src='assets/images/ui/placeholder.jpg'">
+            <div class="slide-content">
+                <h1>Capturing Life's Beautiful Moments</h1>
+                <p>Modern farmhouse-inspired photography in Maine</p>
+            </div>
+        \`;
+        
+        // Add to container
+        slideshowContainer.appendChild(slideElement);
+    });
     
-    // Read template file
-    let template = fs.readFileSync(config.slideshow.templateFile, 'utf8');
+    // Create navigation controls
+    const prevButton = document.createElement('a');
+    prevButton.className = 'prev';
+    prevButton.innerHTML = '&#10094;';
+    prevButton.setAttribute('aria-label', 'Previous slide');
     
-    // Generate array content
-    const arrayContent = slideshowImages.map(img => `            '${img}'`).join(',\n');
+    const nextButton = document.createElement('a');
+    nextButton.className = 'next';
+    nextButton.innerHTML = '&#10095;';
+    nextButton.setAttribute('aria-label', 'Next slide');
     
-    // Replace placeholder
-    const outputContent = template.replace('            // IMAGE_LIST_PLACEHOLDER', arrayContent);
+    slideshowContainer.appendChild(prevButton);
+    slideshowContainer.appendChild(nextButton);
     
-    // Write output file
-    fs.writeFileSync(config.slideshow.outputFile, outputContent);
-    console.log(`Updated slideshow JavaScript with ${slideshowImages.length} images`);
+    // Create slideshow indicators
+    const indicators = document.createElement('div');
+    indicators.className = 'slideshow-indicators';
+    
+    config.imageList.forEach((_, index) => {
+        const indicator = document.createElement('span');
+        indicator.className = 'indicator';
+        if (index === 0) {
+            indicator.classList.add('active');
+        }
+        indicator.setAttribute('data-index', index + 1);
+        indicator.setAttribute('aria-label', \`Go to slide \${index + 1}\`);
+        indicators.appendChild(indicator);
+    });
+    
+    slideshowContainer.appendChild(indicators);
 }
 
 /**
- * Generates the gallery JavaScript file
+ * Initialize slideshow functionality
  */
-function generateGalleryJS() {
-    // Create template file if it doesn't exist
+function initializeSlideshow(slideDuration) {
+    let slideIndex = 0;
+    let slideshowInterval;
+    
+    const slides = document.getElementsByClassName('slide');
+    const indicators = document.getElementsByClassName('indicator');
+    const prevButton = document.querySelector('.prev');
+    const nextButton = document.querySelector('.next');
+    
+    // Exit if no slides found
+    if (slides.length === 0) return;
+    
+    // Show first slide
+    showSlides(slideIndex);
+    
+    // Start automatic slideshow
+    startSlideshow();
+    
+    // Add event listeners to navigation buttons
+    prevButton.addEventListener('click', () => plusSlides(-1));
+    nextButton.addEventListener('click', () => plusSlides(1));
+    
+    // Add event listeners to indicators
+    for (let i = 0; i < indicators.length; i++) {
+        indicators[i].addEventListener('click', () => currentSlide(i));
+    }
+    
+    // Add pause/resume on hover
+    const slideshowContainer = document.querySelector('.slideshow-container');
+    slideshowContainer.addEventListener('mouseenter', pauseSlideshow);
+    slideshowContainer.addEventListener('mouseleave', startSlideshow);
+    
+    // Function to show slides
+    function showSlides(n) {
+        // Reset slideIndex if out of bounds
+        if (n >= slides.length) {
+            slideIndex = 0;
+        } else if (n < 0) {
+            slideIndex = slides.length - 1;
+        } else {
+            slideIndex = n;
+        }
+        
+        // Hide all slides
+        for (let i = 0; i < slides.length; i++) {
+            slides[i].style.display = 'none';
+            slides[i].setAttribute('aria-hidden', 'true');
+            
+            if (indicators.length) {
+                indicators[i].classList.remove('active');
+                indicators[i].setAttribute('aria-selected', 'false');
+            }
+        }
+        
+        // Show current slide
+        slides[slideIndex].style.display = 'block';
+        slides[slideIndex].setAttribute('aria-hidden', 'false');
+        
+        if (indicators.length) {
+            indicators[slideIndex].classList.add('active');
+            indicators[slideIndex].setAttribute('aria-selected', 'true');
+        }
+    }
+    
+    // Function to change slides
+    function plusSlides(n) {
+        showSlides(slideIndex + n);
+        resetSlideshowInterval();
+    }
+    
+    // Function to set current slide
+    function currentSlide(n) {
+        showSlides(n);
+        resetSlideshowInterval();
+    }
+    
+    // Function to start automatic slideshow
+    function startSlideshow() {
+        // Clear any existing interval
+        clearInterval(slideshowInterval);
+        
+        // Set new interval
+        slideshowInterval = setInterval(() => {
+            plusSlides(1);
+        }, slideDuration);
+    }
+    
+    // Function to pause slideshow
+    function pauseSlideshow() {
+        clearInterval(slideshowInterval);
+    }
+    
+    // Function to reset slideshow interval
+    function resetSlideshowInterval() {
+        pauseSlideshow();
+        startSlideshow();
+    }
+    
+    // Add touch swipe support for mobile devices
+    let touchStartX = 0;
+    let touchEndX = 0;
+    
+    slideshowContainer.addEventListener('touchstart', function(e) {
+        touchStartX = e.changedTouches[0].screenX;
+    }, { passive: true });
+    
+    slideshowContainer.addEventListener('touchend', function(e) {
+        touchEndX = e.changedTouches[0].screenX;
+        handleSwipe();
+    }, { passive: true });
+    
+    function handleSwipe() {
+        const threshold = 50; // Minimum distance to be considered a swipe
+        
+        if (touchEndX < touchStartX - threshold) {
+            // Swipe left - go to next slide
+            plusSlides(1);
+        } else if (touchEndX > touchStartX + threshold) {
+            // Swipe right - go to previous slide
+            plusSlides(-1);
+        }
+    }
+}`;
+        
+        fs.writeFileSync(config.slideshow.templateFile, slideshowTemplate);
+        console.log('Created slideshow template file');
+    }
+    
+    // Create gallery template
     if (!fs.existsSync(config.gallery.templateFile)) {
-        const templateContent = `/**
+        const galleryTemplate = `/**
  * Simple Photo Gallery
  * Displays all images in a directory without filtering or captions
  */
@@ -163,6 +352,9 @@ document.addEventListener('DOMContentLoaded', function() {
     
     // Initialize lightbox
     initializeLightbox();
+    
+    // Dispatch event indicating gallery is initialized
+    document.dispatchEvent(new Event('galleryInitialized'));
 });
 
 /**
@@ -213,12 +405,202 @@ function getImageListForGallery(galleryType) {
     return galleryImages[galleryType] || [];
 }
 
-// Rest of the gallery JS functions...
-`;
-        fs.writeFileSync(config.gallery.templateFile, templateContent);
-        console.log('Created gallery template file');
+/**
+ * Generate simple gallery items
+ */
+function generateSimpleGalleryItems(config) {
+    const galleryContainer = document.querySelector('.masonry-grid');
+    
+    // Clear existing content except loading screen
+    const loadingScreen = document.querySelector('.loading-container');
+    galleryContainer.innerHTML = '';
+    
+    // Create gallery items
+    if (config.imageList.length === 0) {
+        const noImagesMessage = document.createElement('p');
+        noImagesMessage.textContent = 'No images found in this gallery.';
+        noImagesMessage.style.textAlign = 'center';
+        noImagesMessage.style.padding = '2rem';
+        galleryContainer.appendChild(noImagesMessage);
+    } else {
+        config.imageList.forEach(image => {
+            // Create gallery item element
+            const galleryItem = document.createElement('div');
+            galleryItem.className = 'gallery-item';
+            
+            // Create simple gallery item HTML without categories or captions
+            galleryItem.innerHTML = \`
+                <a href="\${config.basePath}\${image}" class="lightbox-trigger">
+                    <img src="\${config.basePath}\${image}" alt="Gallery image" loading="lazy"
+                         onerror="this.src='../../assets/images/ui/placeholder.jpg'">
+                </a>
+            \`;
+            
+            // Add to gallery
+            galleryContainer.appendChild(galleryItem);
+        });
     }
     
+    // Hide loading screen if it exists
+    if (loadingScreen) {
+        loadingScreen.style.display = 'none';
+    }
+}
+
+/**
+ * Initialize simple lightbox functionality
+ */
+function initializeLightbox() {
+    // Ensure lightbox container exists
+    let lightbox = document.getElementById('lightbox');
+    
+    // Create lightbox if it doesn't exist
+    if (!lightbox) {
+        lightbox = document.createElement('div');
+        lightbox.id = 'lightbox';
+        lightbox.className = 'lightbox';
+        lightbox.innerHTML = \`
+            <div class="lightbox-content">
+                <span class="close-lightbox">&times;</span>
+                <img id="lightbox-image" src="" alt="Gallery image in lightbox">
+                <div class="lightbox-controls">
+                    <button class="lightbox-prev" aria-label="Previous image">&#10094;</button>
+                    <button class="lightbox-next" aria-label="Next image">&#10095;</button>
+                </div>
+            </div>
+        \`;
+        document.body.appendChild(lightbox);
+    }
+    
+    const lightboxImage = document.getElementById('lightbox-image');
+    const lightboxClose = document.querySelector('.close-lightbox');
+    const lightboxTriggers = document.querySelectorAll('.lightbox-trigger');
+    const prevButton = document.querySelector('.lightbox-prev');
+    const nextButton = document.querySelector('.lightbox-next');
+    
+    // Exit if no triggers found
+    if (lightboxTriggers.length === 0) return;
+    
+    let currentIndex = 0;
+    const lightboxItems = [];
+    
+    // Populate lightbox items array with image URLs
+    lightboxTriggers.forEach((trigger, index) => {
+        const imageUrl = trigger.getAttribute('href');
+        
+        lightboxItems.push({
+            url: imageUrl
+        });
+        
+        trigger.addEventListener('click', function(e) {
+            e.preventDefault();
+            openLightbox(index);
+        });
+    });
+    
+    function openLightbox(index) {
+        currentIndex = index;
+        updateLightboxContent();
+        lightbox.style.display = 'flex';
+        document.body.style.overflow = 'hidden'; // Prevent scrolling
+    }
+    
+    function updateLightboxContent() {
+        const item = lightboxItems[currentIndex];
+        lightboxImage.src = item.url;
+        lightboxImage.alt = "Gallery image";
+    }
+    
+    function closeLightbox() {
+        lightbox.style.display = 'none';
+        document.body.style.overflow = ''; // Restore scrolling
+    }
+    
+    // Add event listeners
+    if (lightboxClose) {
+        lightboxClose.addEventListener('click', closeLightbox);
+    }
+    
+    lightbox.addEventListener('click', function(e) {
+        if (e.target === lightbox) {
+            closeLightbox();
+        }
+    });
+    
+    if (prevButton) {
+        prevButton.addEventListener('click', function() {
+            currentIndex = (currentIndex - 1 + lightboxItems.length) % lightboxItems.length;
+            updateLightboxContent();
+        });
+    }
+    
+    if (nextButton) {
+        nextButton.addEventListener('click', function() {
+            currentIndex = (currentIndex + 1) % lightboxItems.length;
+            updateLightboxContent();
+        });
+    }
+    
+    // Keyboard navigation for lightbox
+    document.addEventListener('keydown', function(e) {
+        if (lightbox.style.display === 'flex') {
+            if (e.key === 'Escape') {
+                closeLightbox();
+            } else if (e.key === 'ArrowLeft') {
+                currentIndex = (currentIndex - 1 + lightboxItems.length) % lightboxItems.length;
+                updateLightboxContent();
+            } else if (e.key === 'ArrowRight') {
+                currentIndex = (currentIndex + 1) % lightboxItems.length;
+                updateLightboxContent();
+            }
+        }
+    });
+}`;
+        
+        fs.writeFileSync(config.gallery.templateFile, galleryTemplate);
+        console.log('Created gallery template file');
+    }
+}
+
+/**
+ * Generates the slideshow JavaScript file
+ */
+function generateSlideshowJS() {
+    // Scan slideshow directory
+    const slideshowImages = scanDirectory(config.slideshow.imageDir);
+    console.log(`Found ${slideshowImages.length} slideshow images`);
+    
+    // Use placeholder if no images found
+    const imagesToUse = slideshowImages.length > 0 ? slideshowImages : ['placeholder.jpg'];
+    
+    // Read template file
+    let template = '';
+    try {
+        template = fs.readFileSync(config.slideshow.templateFile, 'utf8');
+    } catch (err) {
+        console.error('Error reading slideshow template:', err);
+        return;
+    }
+    
+    // Generate array content
+    const arrayContent = imagesToUse.map(img => `            '${img}'`).join(',\n');
+    
+    // Replace placeholder
+    const outputContent = template.replace('            // IMAGE_LIST_PLACEHOLDER', arrayContent);
+    
+    // Write output file
+    try {
+        fs.writeFileSync(config.slideshow.outputFile, outputContent);
+        console.log(`Updated slideshow JavaScript with ${imagesToUse.length} images`);
+    } catch (err) {
+        console.error('Error writing slideshow output file:', err);
+    }
+}
+
+/**
+ * Generates the gallery JavaScript file
+ */
+function generateGalleryJS() {
     // Scan all gallery directories
     const galleryData = {};
     
@@ -230,14 +612,26 @@ function getImageListForGallery(galleryType) {
     });
     
     // Read template file
-    let template = fs.readFileSync(config.gallery.templateFile, 'utf8');
+    let template = '';
+    try {
+        template = fs.readFileSync(config.gallery.templateFile, 'utf8');
+    } catch (err) {
+        console.error('Error reading gallery template:', err);
+        return;
+    }
     
     // Generate gallery objects
     let galleryArrays = '';
     
     Object.entries(galleryData).forEach(([galleryType, images], index) => {
         galleryArrays += `        '${galleryType}': [\n`;
-        galleryArrays += images.map(img => `            '${img}'`).join(',\n');
+        
+        if (images.length > 0) {
+            galleryArrays += images.map(img => `            '${img}'`).join(',\n');
+        } else {
+            galleryArrays += `            // No images found`;
+        }
+        
         galleryArrays += '\n        ]';
         
         // Add comma unless this is the last entry
@@ -250,17 +644,91 @@ function getImageListForGallery(galleryType) {
     const outputContent = template.replace('        // GALLERY_IMAGES_PLACEHOLDER', galleryArrays);
     
     // Write output file
-    fs.writeFileSync(config.gallery.outputFile, outputContent);
-    console.log(`Updated gallery JavaScript with ${Object.keys(galleryData).length} galleries`);
+    try {
+        fs.writeFileSync(config.gallery.outputFile, outputContent);
+        console.log(`Updated gallery JavaScript with ${Object.keys(galleryData).length} galleries`);
+    } catch (err) {
+        console.error('Error writing gallery output file:', err);
+    }
 }
 
-// Main execution
-try {
-    console.log('Starting image array generation...');
-    generateSlideshowJS();
-    generateGalleryJS();
-    console.log('Image array generation completed successfully!');
-} catch (err) {
-    console.error('Error generating image arrays:', err);
-    process.exit(1);
+/**
+ * Creates placeholder images if directories are empty
+ */
+function createPlaceholderImages() {
+    // Create placeholder for slideshow
+    const slideshowImages = scanDirectory(config.slideshow.imageDir);
+    if (slideshowImages.length === 0) {
+        console.log('No slideshow images found. Creating placeholder...');
+        const placeholderDir = path.join(__dirname, 'assets', 'images', 'ui');
+        
+        // Ensure UI directory exists
+        if (!fs.existsSync(placeholderDir)) {
+            fs.mkdirSync(placeholderDir, { recursive: true });
+        }
+        
+        // Create placeholder image if it doesn't exist
+        const placeholderPath = path.join(placeholderDir, 'placeholder.jpg');
+        if (!fs.existsSync(placeholderPath)) {
+            // Create a simple 1x1 pixel placeholder
+            const placeholder = Buffer.from([
+                0xff, 0xd8, 0xff, 0xe0, 0x00, 0x10, 0x4a, 0x46, 0x49, 0x46, 0x00, 0x01, 0x01, 0x01, 0x00, 0x48,
+                0x00, 0x48, 0x00, 0x00, 0xff, 0xdb, 0x00, 0x43, 0x00, 0xff, 0xff, 0xff, 0xff, 0xff, 0xff, 0xff,
+                0xff, 0xff, 0xff, 0xff, 0xff, 0xff, 0xff, 0xff, 0xff, 0xff, 0xff, 0xff, 0xff, 0xff, 0xff, 0xff,
+                0xff, 0xff, 0xff, 0xff, 0xff, 0xff, 0xff, 0xff, 0xff, 0xff, 0xff, 0xff, 0xff, 0xff, 0xff, 0xff,
+                0xff, 0xff, 0xff, 0xff, 0xff, 0xff, 0xff, 0xff, 0xff, 0xff, 0xff, 0xff, 0xff, 0xff, 0xff, 0xff,
+                0xff, 0xff, 0xff, 0xff, 0xff, 0xff, 0xff, 0xff, 0xff, 0xc2, 0x00, 0x0b, 0x08, 0x00, 0x01, 0x00,
+                0x01, 0x01, 0x01, 0x11, 0x00, 0xff, 0xc4, 0x00, 0x14, 0x00, 0x01, 0x00, 0x00, 0x00, 0x00, 0x00,
+                0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x09, 0xff, 0xda, 0x00, 0x08, 0x01,
+                0x01, 0x00, 0x00, 0x3f, 0x00, 0x37, 0xff, 0xd9
+            ]);
+            fs.writeFileSync(placeholderPath, placeholder);
+            console.log('Created placeholder image at', placeholderPath);
+        }
+    }
+    
+    // Check each gallery directory and add placeholder if empty
+    config.gallery.galleries.forEach(galleryType => {
+        const galleryPath = path.join(config.gallery.baseImageDir, galleryType);
+        const images = scanDirectory(galleryPath);
+        
+        if (images.length === 0) {
+            console.log(`No images found in ${galleryType} gallery. Creating directories...`);
+            
+            // Ensure gallery directory exists
+            if (!fs.existsSync(galleryPath)) {
+                fs.mkdirSync(galleryPath, { recursive: true });
+            }
+        }
+    });
 }
+
+/**
+ * Main execution function
+ */
+function main() {
+    try {
+        console.log('Starting image array generation...');
+        
+        // Ensure directories exist
+        ensureDirectories();
+        
+        // Create template files if needed
+        createTemplateFiles();
+        
+        // Create placeholder images if needed
+        createPlaceholderImages();
+        
+        // Generate JS files
+        generateSlideshowJS();
+        generateGalleryJS();
+        
+        console.log('Image array generation completed successfully!');
+    } catch (err) {
+        console.error('Error generating image arrays:', err);
+        process.exit(1);
+    }
+}
+
+// Run the script
+main();

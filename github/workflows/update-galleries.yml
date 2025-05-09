@@ -1,0 +1,38 @@
+name: Update Image Galleries
+
+on:
+  push:
+    paths:
+      - 'assets/images/slideshow/**'
+      - 'assets/images/galleries/**'
+  workflow_dispatch:  # Allows manual triggering
+
+jobs:
+  update-galleries:
+    runs-on: ubuntu-latest
+    
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v3
+      
+      - name: Set up Node.js
+        uses: actions/setup-node@v3
+        with:
+          node-version: '16'
+      
+      - name: Run image array generator
+        run: node generate-image-arrays.js
+      
+      - name: Check for changes
+        id: check-changes
+        run: |
+          git diff --quiet assets/js/simple-slideshow.js assets/js/simple-gallery.js || echo "changes=true" >> $GITHUB_OUTPUT
+      
+      - name: Commit and push changes
+        if: steps.check-changes.outputs.changes == 'true'
+        run: |
+          git config --global user.name 'GitHub Actions'
+          git config --global user.email 'actions@github.com'
+          git add assets/js/simple-slideshow.js assets/js/simple-gallery.js
+          git commit -m "Auto-update image galleries"
+          git push
