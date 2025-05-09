@@ -18,7 +18,11 @@ jobs:
       - name: Set up Node.js
         uses: actions/setup-node@v3
         with:
-          node-version: '16'
+          node-version: '18'
+      
+      # Install dependencies - using npm install instead of npm ci
+      - name: Install dependencies
+        run: npm install
       
       - name: Run image array generator
         run: node generate-image-arrays.js

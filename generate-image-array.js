@@ -20,14 +20,14 @@ const config = {
     slideshow: {
         imageDir: path.join(__dirname, 'assets', 'images', 'slideshow'),
         outputFile: path.join(__dirname, 'assets', 'js', 'simple-slideshow.js'),
-        templateFile: path.join(__dirname, 'assets', 'js', 'slideshow-template.js')
+        templateFile: path.join(__dirname, 'assets', 'js', 'templates', 'slideshow-template.js')
     },
     
     // Gallery configuration
     gallery: {
         baseImageDir: path.join(__dirname, 'assets', 'images', 'galleries'),
         outputFile: path.join(__dirname, 'assets', 'js', 'simple-gallery.js'),
-        templateFile: path.join(__dirname, 'assets', 'js', 'gallery-template.js'),
+        templateFile: path.join(__dirname, 'assets', 'js', 'templates', 'gallery-template.js'),
         // List of gallery directories to scan
         galleries: [
             'landscapes',
@@ -49,6 +49,7 @@ const config = {
 function ensureDirectories() {
     const dirs = [
         path.join(__dirname, 'assets', 'js'),
+        path.join(__dirname, 'assets', 'js', 'templates'),
         config.slideshow.imageDir,
         config.gallery.baseImageDir
     ];
@@ -97,6 +98,12 @@ function scanDirectory(directory) {
  * Creates template files if they don't exist
  */
 function createTemplateFiles() {
+    // Create templates directory if it doesn't exist
+    const templatesDir = path.join(__dirname, 'assets', 'js', 'templates');
+    if (!fs.existsSync(templatesDir)) {
+        fs.mkdirSync(templatesDir, { recursive: true });
+    }
+    
     // Create slideshow template
     if (!fs.existsSync(config.slideshow.templateFile)) {
         const slideshowTemplate = `/**
@@ -563,6 +570,50 @@ function initializeLightbox() {
 }
 
 /**
+ * Creates output files in the assets/js directory
+ */
+function createOutputFiles() {
+    // Create output directory if it doesn't exist
+    if (!fs.existsSync(config.outputDir)) {
+        fs.mkdirSync(config.outputDir, { recursive: true });
+    }
+    
+    // Create simple-slideshow.js if it doesn't exist
+    if (!fs.existsSync(config.slideshow.outputFile)) {
+        // Read template
+        const template = fs.readFileSync(config.slideshow.templateFile, 'utf8');
+        
+        // Create output file with placeholder image array
+        const outputContent = template.replace('            // IMAGE_LIST_PLACEHOLDER', "            'placeholder.jpg'");
+        fs.writeFileSync(config.slideshow.outputFile, outputContent);
+        console.log('Created slideshow JavaScript file');
+    }
+    
+    // Create simple-gallery.js if it doesn't exist
+    if (!fs.existsSync(config.gallery.outputFile)) {
+        // Read template
+        const template = fs.readFileSync(config.gallery.templateFile, 'utf8');
+        
+        // Create a placeholder entry for each gallery
+        let galleryArrays = '';
+        config.gallery.galleries.forEach((galleryType, index) => {
+            galleryArrays += `        '${galleryType}': [\n            'placeholder.jpg'\n        ]`;
+            
+            // Add comma unless this is the last entry
+            if (index < config.gallery.galleries.length - 1) {
+                galleryArrays += ',\n';
+            }
+        });
+        
+        // Replace placeholder
+        const outputContent = template.replace('        // GALLERY_IMAGES_PLACEHOLDER', galleryArrays);
+        
+        fs.writeFileSync(config.gallery.outputFile, outputContent);
+        console.log('Created gallery JavaScript file');
+    }
+}
+
+/**
  * Generates the slideshow JavaScript file
  */
 function generateSlideshowJS() {
@@ -629,7 +680,7 @@ function generateGalleryJS() {
         if (images.length > 0) {
             galleryArrays += images.map(img => `            '${img}'`).join(',\n');
         } else {
-            galleryArrays += `            // No images found`;
+            galleryArrays += `            'placeholder.jpg'`;
         }
         
         galleryArrays += '\n        ]';
@@ -656,49 +707,44 @@ function generateGalleryJS() {
  * Creates placeholder images if directories are empty
  */
 function createPlaceholderImages() {
-    // Create placeholder for slideshow
-    const slideshowImages = scanDirectory(config.slideshow.imageDir);
-    if (slideshowImages.length === 0) {
-        console.log('No slideshow images found. Creating placeholder...');
-        const placeholderDir = path.join(__dirname, 'assets', 'images', 'ui');
-        
-        // Ensure UI directory exists
-        if (!fs.existsSync(placeholderDir)) {
-            fs.mkdirSync(placeholderDir, { recursive: true });
-        }
-        
-        // Create placeholder image if it doesn't exist
-        const placeholderPath = path.join(placeholderDir, 'placeholder.jpg');
-        if (!fs.existsSync(placeholderPath)) {
-            // Create a simple 1x1 pixel placeholder
-            const placeholder = Buffer.from([
-                0xff, 0xd8, 0xff, 0xe0, 0x00, 0x10, 0x4a, 0x46, 0x49, 0x46, 0x00, 0x01, 0x01, 0x01, 0x00, 0x48,
-                0x00, 0x48, 0x00, 0x00, 0xff, 0xdb, 0x00, 0x43, 0x00, 0xff, 0xff, 0xff, 0xff, 0xff, 0xff, 0xff,
-                0xff, 0xff, 0xff, 0xff, 0xff, 0xff, 0xff, 0xff, 0xff, 0xff, 0xff, 0xff, 0xff, 0xff, 0xff, 0xff,
-                0xff, 0xff, 0xff, 0xff, 0xff, 0xff, 0xff, 0xff, 0xff, 0xff, 0xff, 0xff, 0xff, 0xff, 0xff, 0xff,
-                0xff, 0xff, 0xff, 0xff, 0xff, 0xff, 0xff, 0xff, 0xff, 0xff, 0xff, 0xff, 0xff, 0xff, 0xff, 0xff,
-                0xff, 0xff, 0xff, 0xff, 0xff, 0xff, 0xff, 0xff, 0xff, 0xc2, 0x00, 0x0b, 0x08, 0x00, 0x01, 0x00,
-                0x01, 0x01, 0x01, 0x11, 0x00, 0xff, 0xc4, 0x00, 0x14, 0x00, 0x01, 0x00, 0x00, 0x00, 0x00, 0x00,
-                0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x09, 0xff, 0xda, 0x00, 0x08, 0x01,
-                0x01, 0x00, 0x00, 0x3f, 0x00, 0x37, 0xff, 0xd9
-            ]);
-            fs.writeFileSync(placeholderPath, placeholder);
-            console.log('Created placeholder image at', placeholderPath);
-        }
+    // Create UI directory for placeholders
+    const uiDir = path.join(__dirname, 'assets', 'images', 'ui');
+    if (!fs.existsSync(uiDir)) {
+        fs.mkdirSync(uiDir, { recursive: true });
     }
     
-    // Check each gallery directory and add placeholder if empty
+    // Create placeholder image if it doesn't exist
+    const placeholderPath = path.join(uiDir, 'placeholder.jpg');
+    if (!fs.existsSync(placeholderPath)) {
+        // Create a simple 1x1 pixel placeholder (minimal JPG)
+        const placeholder = Buffer.from([
+            0xff, 0xd8, 0xff, 0xe0, 0x00, 0x10, 0x4a, 0x46, 0x49, 0x46, 0x00, 0x01, 0x01, 0x01, 0x00, 0x48,
+            0x00, 0x48, 0x00, 0x00, 0xff, 0xdb, 0x00, 0x43, 0x00, 0xff, 0xff, 0xff, 0xff, 0xff, 0xff, 0xff,
+            0xff, 0xff, 0xff, 0xff, 0xff, 0xff, 0xff, 0xff, 0xff, 0xff, 0xff, 0xff, 0xff, 0xff, 0xff, 0xff,
+            0xff, 0xff, 0xff, 0xff, 0xff, 0xff, 0xff, 0xff, 0xff, 0xff, 0xff, 0xff, 0xff, 0xff, 0xff, 0xff,
+            0xff, 0xff, 0xff, 0xff, 0xff, 0xff, 0xff, 0xff, 0xff, 0xff, 0xff, 0xff, 0xff, 0xff, 0xff, 0xff,
+            0xff, 0xff, 0xff, 0xff, 0xff, 0xff, 0xff, 0xff, 0xff, 0xc2, 0x00, 0x0b, 0x08, 0x00, 0x01, 0x00,
+            0x01, 0x01, 0x01, 0x11, 0x00, 0xff, 0xc4, 0x00, 0x14, 0x00, 0x01, 0x00, 0x00, 0x00, 0x00, 0x00,
+            0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x09, 0xff, 0xda, 0x00, 0x08, 0x01,
+            0x01, 0x00, 0x00, 0x3f, 0x00, 0x37, 0xff, 0xd9
+        ]);
+        fs.writeFileSync(placeholderPath, placeholder);
+        console.log('Created placeholder image at', placeholderPath);
+    }
+    
+    // Create slideshow directory if it doesn't exist
+    if (!fs.existsSync(config.slideshow.imageDir)) {
+        fs.mkdirSync(config.slideshow.imageDir, { recursive: true });
+        console.log('Created slideshow directory');
+    }
+    
+    // Check each gallery directory and create if it doesn't exist
     config.gallery.galleries.forEach(galleryType => {
         const galleryPath = path.join(config.gallery.baseImageDir, galleryType);
-        const images = scanDirectory(galleryPath);
         
-        if (images.length === 0) {
-            console.log(`No images found in ${galleryType} gallery. Creating directories...`);
-            
-            // Ensure gallery directory exists
-            if (!fs.existsSync(galleryPath)) {
-                fs.mkdirSync(galleryPath, { recursive: true });
-            }
+        if (!fs.existsSync(galleryPath)) {
+            fs.mkdirSync(galleryPath, { recursive: true });
+            console.log(`Created gallery directory: ${galleryType}`);
         }
     });
 }
@@ -718,6 +764,9 @@ function main() {
         
         // Create placeholder images if needed
         createPlaceholderImages();
+        
+        // Create output files if they don't exist
+        createOutputFiles();
         
         // Generate JS files
         generateSlideshowJS();

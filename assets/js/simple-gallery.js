@@ -69,7 +69,33 @@ function getBasePath(galleryType) {
 function getImageListForGallery(galleryType) {
     // These arrays are automatically updated by the build script
     const galleryImages = {
-        // GALLERY_IMAGES_PLACEHOLDER
+        'landscapes': [
+            'placeholder.jpg'
+        ],
+        'wildlife': [
+            'placeholder.jpg'
+        ],
+        'nature': [
+            'placeholder.jpg'
+        ],
+        'portraits/maternity': [
+            'placeholder.jpg'
+        ],
+        'portraits/engagement': [
+            'placeholder.jpg'
+        ],
+        'portraits/families': [
+            'placeholder.jpg'
+        ],
+        'portraits/newborns': [
+            'placeholder.jpg'
+        ],
+        'portraits/seniors': [
+            'placeholder.jpg'
+        ],
+        'portraits/headshots': [
+            'placeholder.jpg'
+        ]
     };
     
     return galleryImages[galleryType] || [];

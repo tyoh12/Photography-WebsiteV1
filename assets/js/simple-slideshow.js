@@ -8,15 +8,11 @@ document.addEventListener('DOMContentLoaded', function() {
     // Exit if slideshow container doesn't exist on this page
     if (!slideshowContainer) return;
     
-    // Simple configuration - this would normally be auto-generated
+    // Simple configuration - updated automatically by build script
     const config = {
         imagePath: 'assets/images/slideshow/',
-        // Placeholder images - replace these with your actual image filenames
         imageList: [
-            'slide1.jpg',
-            'slide2.jpg',
-            'slide3.jpg',
-            'slide4.jpg'
+            'placeholder.jpg'
         ],
         slideDuration: 5000 // Time in milliseconds between transitions
     };
@@ -27,7 +23,7 @@ document.addEventListener('DOMContentLoaded', function() {
     // Initialize slideshow functionality
     initializeSlideshow(config.slideDuration);
     
-    // Dispatch event to hide loading screen
+    // Dispatch event indicating slideshow is initialized
     document.dispatchEvent(new Event('slideshowInitialized'));
 });
 
@@ -52,12 +48,14 @@ function generateSimpleSlideshow(config) {
             slideElement.classList.add('active');
         }
         
-        // Handle missing images with placeholder
-        const imgSrc = config.imagePath + image;
-        
-        // Create simple image slide with no text
+        // Create simple image slide with minimal text
         slideElement.innerHTML = `
-            <img src="${imgSrc}" alt="Slideshow image" onerror="this.src='assets/images/ui/placeholder.jpg'">
+            <img src="${config.imagePath}${image}" alt="Slideshow image" 
+                 onerror="this.src='assets/images/ui/placeholder.jpg'">
+            <div class="slide-content">
+                <h1>Capturing Life's Beautiful Moments</h1>
+                <p>Modern farmhouse-inspired photography in Maine</p>
+            </div>
         `;
         
         // Add to container
@@ -109,10 +107,7 @@ function initializeSlideshow(slideDuration) {
     const nextButton = document.querySelector('.next');
     
     // Exit if no slides found
-    if (slides.length === 0) {
-        console.error('No slides found in slideshow');
-        return;
-    }
+    if (slides.length === 0) return;
     
     // Show first slide
     showSlides(slideIndex);
@@ -121,10 +116,8 @@ function initializeSlideshow(slideDuration) {
     startSlideshow();
     
     // Add event listeners to navigation buttons
-    if (prevButton && nextButton) {
-        prevButton.addEventListener('click', () => plusSlides(-1));
-        nextButton.addEventListener('click', () => plusSlides(1));
-    }
+    prevButton.addEventListener('click', () => plusSlides(-1));
+    nextButton.addEventListener('click', () => plusSlides(1));
     
     // Add event listeners to indicators
     for (let i = 0; i < indicators.length; i++) {

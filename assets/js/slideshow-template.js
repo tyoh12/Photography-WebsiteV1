@@ -22,6 +22,9 @@ document.addEventListener('DOMContentLoaded', function() {
     
     // Initialize slideshow functionality
     initializeSlideshow(config.slideDuration);
+    
+    // Dispatch event indicating slideshow is initialized
+    document.dispatchEvent(new Event('slideshowInitialized'));
 });
 
 /**
@@ -29,16 +32,30 @@ document.addEventListener('DOMContentLoaded', function() {
  */
 function generateSimpleSlideshow(config) {
     const slideshowContainer = document.querySelector('.slideshow-container');
+    
+    // Clear existing content except loading screen
+    const loadingScreen = slideshowContainer.querySelector('.loading-container');
     slideshowContainer.innerHTML = '';
+    if (loadingScreen) {
+        slideshowContainer.appendChild(loadingScreen);
+    }
     
     // Create slides
-    config.imageList.forEach((image) => {
+    config.imageList.forEach((image, index) => {
         const slideElement = document.createElement('div');
-        slideElement.className = 'slide fade';
+        slideElement.className = 'slide';
+        if (index === 0) {
+            slideElement.classList.add('active');
+        }
         
-        // Create simple image slide with no text
+        // Create simple image slide with minimal text
         slideElement.innerHTML = `
-            <img src="${config.imagePath}${image}" alt="Slideshow image">
+            <img src="${config.imagePath}${image}" alt="Slideshow image" 
+                 onerror="this.src='assets/images/ui/placeholder.jpg'">
+            <div class="slide-content">
+                <h1>Capturing Life's Beautiful Moments</h1>
+                <p>Modern farmhouse-inspired photography in Maine</p>
+            </div>
         `;
         
         // Add to container
@@ -66,6 +83,9 @@ function generateSimpleSlideshow(config) {
     config.imageList.forEach((_, index) => {
         const indicator = document.createElement('span');
         indicator.className = 'indicator';
+        if (index === 0) {
+            indicator.classList.add('active');
+        }
         indicator.setAttribute('data-index', index + 1);
         indicator.setAttribute('aria-label', `Go to slide ${index + 1}`);
         indicators.appendChild(indicator);
@@ -78,7 +98,7 @@ function generateSimpleSlideshow(config) {
  * Initialize slideshow functionality
  */
 function initializeSlideshow(slideDuration) {
-    let slideIndex = 1;
+    let slideIndex = 0;
     let slideshowInterval;
     
     const slides = document.getElementsByClassName('slide');
@@ -101,7 +121,7 @@ function initializeSlideshow(slideDuration) {
     
     // Add event listeners to indicators
     for (let i = 0; i < indicators.length; i++) {
-        indicators[i].addEventListener('click', () => currentSlide(i + 1));
+        indicators[i].addEventListener('click', () => currentSlide(i));
     }
     
     // Add pause/resume on hover
@@ -112,10 +132,10 @@ function initializeSlideshow(slideDuration) {
     // Function to show slides
     function showSlides(n) {
         // Reset slideIndex if out of bounds
-        if (n > slides.length) {
-            slideIndex = 1;
-        } else if (n < 1) {
-            slideIndex = slides.length;
+        if (n >= slides.length) {
+            slideIndex = 0;
+        } else if (n < 0) {
+            slideIndex = slides.length - 1;
         } else {
             slideIndex = n;
         }
@@ -132,24 +152,24 @@ function initializeSlideshow(slideDuration) {
         }
         
         // Show current slide
-        slides[slideIndex - 1].style.display = 'block';
-        slides[slideIndex - 1].setAttribute('aria-hidden', 'false');
+        slides[slideIndex].style.display = 'block';
+        slides[slideIndex].setAttribute('aria-hidden', 'false');
         
         if (indicators.length) {
-            indicators[slideIndex - 1].classList.add('active');
-            indicators[slideIndex - 1].setAttribute('aria-selected', 'true');
+            indicators[slideIndex].classList.add('active');
+            indicators[slideIndex].setAttribute('aria-selected', 'true');
         }
     }
     
     // Function to change slides
     function plusSlides(n) {
-        showSlides(slideIndex += n);
+        showSlides(slideIndex + n);
         resetSlideshowInterval();
     }
     
     // Function to set current slide
     function currentSlide(n) {
-        showSlides(slideIndex = n);
+        showSlides(n);
         resetSlideshowInterval();
     }
     
