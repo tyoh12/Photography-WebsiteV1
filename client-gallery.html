@@ -1,0 +1,407 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Client Gallery | Emma Frost Photography</title>
+    <meta name="description" content="Access your private photography session gallery. Enter your password to view and download your photos from Emma Frost Photography.">
+    
+    <!-- Stylesheets -->
+    <link rel="stylesheet" href="assets/css/main.css">
+    <link rel="stylesheet" href="assets/css/responsive.css">
+    <link rel="stylesheet" href="assets/css/theme.css">
+    
+    <!-- Google Fonts - Playfair Display (serif) and Raleway (sans-serif) -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@400;500;600;700&family=Raleway:wght@300;400;500;600&display=swap" rel="stylesheet">
+    
+    <!-- Favicon -->
+    <link rel="icon" href="assets/images/ui/favicon.ico" type="image/x-icon">
+</head>
+<body>
+    <!-- Site Header -->
+    <header id="site-header" class="header-container">
+        <div class="logo-container">
+            <a href="index.html" class="logo">
+                <img src="assets/images/ui/logo.svg" alt="Emma Frost Photography Logo" class="logo-light">
+                <img src="assets/images/ui/logo-dark.svg" alt="Emma Frost Photography Logo" class="logo-dark">
+            </a>
+        </div>
+        
+        <nav id="main-navigation" class="main-nav">
+            <button id="menu-toggle" class="menu-toggle" aria-label="Toggle navigation menu">
+                <span class="hamburger"></span>
+            </button>
+            
+            <ul class="nav-links">
+                <li><a href="index.html">Home</a></li>
+                <li class="dropdown">
+                    <a href="#" class="dropdown-toggle">Galleries</a>
+                    <div class="dropdown-menu">
+                        <div class="dropdown-section">
+                            <h3>Nature</h3>
+                            <ul>
+                                <li><a href="galleries/landscapes.html">Landscapes</a></li>
+                                <li><a href="galleries/wildlife.html">Wildlife</a></li>
+                                <li><a href="galleries/nature.html">Nature</a></li>
+                            </ul>
+                        </div>
+                        <div class="dropdown-section">
+                            <h3>Portraits</h3>
+                            <ul>
+                                <li><a href="galleries/portraits/maternity.html">Maternity</a></li>
+                                <li><a href="galleries/portraits/engagement.html">Engagement</a></li>
+                                <li><a href="galleries/portraits/families.html">Families</a></li>
+                                <li><a href="galleries/portraits/newborns.html">Newborns</a></li>
+                                <li><a href="galleries/portraits/seniors.html">Seniors</a></li>
+                                <li><a href="galleries/portraits/headshots.html">Headshots</a></li>
+                            </ul>
+                        </div>
+                    </div>
+                </li>
+                <li><a href="about.html">About</a></li>
+                <li><a href="pricing.html">Pricing</a></li>
+                <li><a href="client-gallery.html" class="active">Client Gallery</a></li>
+                <li><a href="contact.html">Contact</a></li>
+            </ul>
+        </nav>
+        
+        <div class="theme-toggle-container">
+            <button id="theme-toggle" class="theme-toggle" aria-label="Toggle light/dark theme">
+                <svg class="sun-icon" xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                    <circle cx="12" cy="12" r="5"></circle>
+                    <line x1="12" y1="1" x2="12" y2="3"></line>
+                    <line x1="12" y1="21" x2="12" y2="23"></line>
+                    <line x1="4.22" y1="4.22" x2="5.64" y2="5.64"></line>
+                    <line x1="18.36" y1="18.36" x2="19.78" y2="19.78"></line>
+                    <line x1="1" y1="12" x2="3" y2="12"></line>
+                    <line x1="21" y1="12" x2="23" y2="12"></line>
+                    <line x1="4.22" y1="19.78" x2="5.64" y2="18.36"></line>
+                    <line x1="18.36" y1="5.64" x2="19.78" y2="4.22"></line>
+                </svg>
+                <svg class="moon-icon" xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                    <path d="M21 12.79A9 9 0 1 1 11.21 3 7 7 0 0 0 21 12.79z"></path>
+                </svg>
+            </button>
+        </div>
+    </header>
+    
+    <!-- Main Content -->
+    <main>
+        <!-- Page Header -->
+        <section class="page-header">
+            <div class="container">
+                <h1>Client Gallery</h1>
+                <p class="subtitle">Access your personalized collection of memories</p>
+            </div>
+        </section>
+        
+        <!-- Client Gallery Access Section -->
+        <section class="client-gallery-section">
+            <div class="container">
+                <div class="gallery-access-container">
+                    <div class="gallery-access-image">
+                        <img src="assets/images/ui/client-gallery-hero.jpg" alt="Person looking at photo gallery" class="featured-image">
+                    </div>
+                    
+                    <div class="gallery-access-content">
+                        <h2>Your Photos Are Ready</h2>
+                        <p class="lead">Enter your unique gallery password to access your personal collection of images from our session together.</p>
+                        
+                        <p>After our photography session, your curated gallery of images will be made available in a private, password-protected online gallery. You'll receive an email with your access details once your photos are ready for viewing, typically within 2-3 weeks of your session date.</p>
+                        
+                        <form id="gallery-access-form" class="gallery-form" action="#" method="post">
+                            <div class="form-group">
+                                <label for="gallery-password">Gallery Password</label>
+                                <input type="password" id="gallery-password" name="gallery-password" required>
+                            </div>
+                            
+                            <button type="submit" class="cta-button primary">Access Gallery</button>
+                        </form>
+                        
+                        <div class="gallery-help">
+                            <h3>Need Assistance?</h3>
+                            <p>If you've forgotten your gallery password or are having trouble accessing your photos, please don't hesitate to reach out. I'm here to help!</p>
+                            <a href="mailto:hello@emmafrostphotography.com" class="text-link">Email for Support</a>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+        
+        <!-- Gallery Features Section -->
+        <section class="gallery-features-section">
+            <div class="container">
+                <div class="section-header centered">
+                    <h2>Gallery Features</h2>
+                    <p>Everything you need to enjoy and share your images</p>
+                </div>
+                
+                <div class="features-grid">
+                    <div class="feature-card">
+                        <div class="feature-icon">
+                            <svg xmlns="http://www.w3.org/2000/svg" width="36" height="36" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                                <rect x="3" y="3" width="18" height="18" rx="2" ry="2"></rect>
+                                <circle cx="8.5" cy="8.5" r="1.5"></circle>
+                                <polyline points="21 15 16 10 5 21"></polyline>
+                            </svg>
+                        </div>
+                        <h3>High-Resolution Viewing</h3>
+                        <p>View your images in beautiful high resolution. Zoom in to see all the fine details and experience your photos as they were meant to be seen.</p>
+                    </div>
+                    
+                    <div class="feature-card">
+                        <div class="feature-icon">
+                            <svg xmlns="http://www.w3.org/2000/svg" width="36" height="36" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                                <path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"></path>
+                                <polyline points="7 10 12 15 17 10"></polyline>
+                                <line x1="12" y1="15" x2="12" y2="3"></line>
+                            </svg>
+                        </div>
+                        <h3>Digital Downloads</h3>
+                        <p>Easily download individual images or the entire gallery with a single click. Your photos are yours to keep forever, with no expiration date on downloads.</p>
+                    </div>
+                    
+                    <div class="feature-card">
+                        <div class="feature-icon">
+                            <svg xmlns="http://www.w3.org/2000/svg" width="36" height="36" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                                <path d="M4 12v8a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2v-8"></path>
+                                <polyline points="16 6 12 2 8 6"></polyline>
+                                <line x1="12" y1="2" x2="12" y2="15"></line>
+                            </svg>
+                        </div>
+                        <h3>Easy Sharing</h3>
+                        <p>Share your favorite images directly to social media or via email with friends and family. You control who sees your photos and how they're shared.</p>
+                    </div>
+                    
+                    <div class="feature-card">
+                        <div class="feature-icon">
+                            <svg xmlns="http://www.w3.org/2000/svg" width="36" height="36" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                                <path d="M20.59 13.41l-7.17 7.17a2 2 0 0 1-2.83 0L2 12V2h10l8.59 8.59a2 2 0 0 1 0 2.82z"></path>
+                                <line x1="7" y1="7" x2="7.01" y2="7"></line>
+                            </svg>
+                        </div>
+                        <h3>Favorite & Select</h3>
+                        <p>Mark your favorite images to easily find them later or to indicate your selections for prints, albums, or editing preferences. Creating a wishlist has never been easier.</p>
+                    </div>
+                    
+                    <div class="feature-card">
+                        <div class="feature-icon">
+                            <svg xmlns="http://www.w3.org/2000/svg" width="36" height="36" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                                <rect x="3" y="11" width="18" height="11" rx="2" ry="2"></rect>
+                                <path d="M7 11V7a5 5 0 0 1 10 0v4"></path>
+                            </svg>
+                        </div>
+                        <h3>Secure Access</h3>
+                        <p>Your gallery is protected with password security. Only those you choose to share your password with will have access to your private collection of images.</p>
+                    </div>
+                    
+                    <div class="feature-card">
+                        <div class="feature-icon">
+                            <svg xmlns="http://www.w3.org/2000/svg" width="36" height="36" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                                <circle cx="12" cy="12" r="10"></circle>
+                                <line x1="12" y1="8" x2="12" y2="12"></line>
+                                <line x1="12" y1="16" x2="12.01" y2="16"></line>
+                            </svg>
+                        </div>
+                        <h3>Print Ordering</h3>
+                        <p>Order professional-quality prints, canvases, albums, and other products directly from your gallery. Delivered straight to your doorstep with careful packaging.</p>
+                    </div>
+                </div>
+            </div>
+        </section>
+        
+        <!-- FAQ Section -->
+        <section class="faq-section">
+            <div class="container">
+                <div class="section-header centered">
+                    <h2>Frequently Asked Questions</h2>
+                    <p>Common questions about accessing and using your gallery</p>
+                </div>
+                
+                <div class="faq-container">
+                    <div class="faq-item">
+                        <div class="faq-question">
+                            <h3>How long will my gallery be available?</h3>
+                            <span class="faq-toggle">+</span>
+                        </div>
+                        <div class="faq-answer">
+                            <p>Your online gallery will remain active for 12 months from the date it's delivered to you. After that time, galleries are archived and may require a small fee to reactivate. I recommend downloading your images soon after receiving your gallery to ensure you have permanent access to them.</p>
+                        </div>
+                    </div>
+                    
+                    <div class="faq-item">
+                        <div class="faq-question">
+                            <h3>Can I share my gallery password with family and friends?</h3>
+                            <span class="faq-toggle">+</span>
+                        </div>
+                        <div class="faq-answer">
+                            <p>Absolutely! Your gallery password can be shared with family members and friends so they can view and even order prints directly from your gallery. The password protection is simply to keep your images private from the general public.</p>
+                        </div>
+                    </div>
+                    
+                    <div class="faq-item">
+                        <div class="faq-question">
+                            <h3>What if I need help ordering prints or products?</h3>
+                            <span class="faq-toggle">+</span>
+                        </div>
+                        <div class="faq-answer">
+                            <p>I'm happy to assist you with print ordering or product selections. Simply email me or use the contact form, and we can schedule a video call to go through your gallery together. I can provide recommendations for print sizes, frame styles, or album designs based on your specific needs and the images in your collection.</p>
+                        </div>
+                    </div>
+                    
+                    <div class="faq-item">
+                        <div class="faq-question">
+                            <h3>Can I download all my photos at once?</h3>
+                            <span class="faq-toggle">+</span>
+                        </div>
+                        <div class="faq-answer">
+                            <p>Yes! There's a "Download All" button in your gallery that allows you to download all your images as a zip file. Depending on the number of images and your internet connection speed, this may take several minutes. For the best experience, use a computer rather than a mobile device for downloading multiple images.</p>
+                        </div>
+                    </div>
+                    
+                    <div class="faq-item">
+                        <div class="faq-question">
+                            <h3>Why do my photos look different when printed elsewhere?</h3>
+                            <span class="faq-toggle">+</span>
+                        </div>
+                        <div class="faq-answer">
+                            <p>Color calibration and paper quality vary significantly between printing services. The professional lab I partner with uses calibrated printers and premium archival papers that ensure your images look exactly as they were edited. Consumer print services often have automated color adjustments that can alter the look of your images. For the highest quality and color accuracy, I recommend ordering prints through your gallery.</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+        
+        <!-- Call to Action Section -->
+        <section class="cta-section">
+            <div class="cta-content">
+                <h2>Ready to Schedule Your Next Session?</h2>
+                <p>Let's create more beautiful memories together</p>
+                <div class="cta-buttons">
+                    <a href="pricing.html" class="cta-button secondary">View Pricing</a>
+                    <a href="contact.html" class="cta-button primary">Contact Me</a>
+                </div>
+            </div>
+        </section>
+    </main>
+    
+    <!-- Site Footer -->
+    <footer id="site-footer" class="footer-container">
+        <div class="footer-content">
+            <div class="footer-logo">
+                <img src="assets/images/ui/logo-footer.svg" alt="Emma Frost Photography Logo">
+            </div>
+            
+            <div class="footer-nav">
+                <div class="footer-col">
+                    <h4>Navigation</h4>
+                    <ul>
+                        <li><a href="index.html">Home</a></li>
+                        <li><a href="about.html">About</a></li>
+                        <li><a href="pricing.html">Pricing</a></li>
+                        <li><a href="client-gallery.html">Client Gallery</a></li>
+                        <li><a href="contact.html">Contact</a></li>
+                    </ul>
+                </div>
+                
+                <div class="footer-col">
+                    <h4>Galleries</h4>
+                    <ul>
+                        <li><a href="galleries/landscapes.html">Landscapes</a></li>
+                        <li><a href="galleries/wildlife.html">Wildlife</a></li>
+                        <li><a href="galleries/portraits/families.html">Families</a></li>
+                        <li><a href="galleries/portraits/maternity.html">Maternity</a></li>
+                        <li><a href="galleries/portraits/engagement.html">Engagement</a></li>
+                    </ul>
+                </div>
+                
+                <div class="footer-col">
+                    <h4>Contact</h4>
+                    <address>
+                        <p>Fairfield, Maine</p>
+                        <p><a href="mailto:hello@emmafrostphotography.com">hello@emmafrostphotography.com</a></p>
+                        <p><a href="tel:+12075551234">(207) 555-1234</a></p>
+                    </address>
+                </div>
+            </div>
+            
+            <div class="footer-social">
+                <h4>Follow Me</h4>
+                <div class="social-links">
+                    <a href="https://instagram.com/emmafrostphotography" target="_blank" rel="noopener noreferrer" aria-label="Instagram">
+                        <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                            <rect x="2" y="2" width="20" height="20" rx="5" ry="5"></rect>
+                            <path d="M16 11.37A4 4 0 1 1 12.63 8 4 4 0 0 1 16 11.37z"></path>
+                            <line x1="17.5" y1="6.5" x2="17.51" y2="6.5"></line>
+                        </svg>
+                    </a>
+                    <a href="https://facebook.com/emmafrostphotography" target="_blank" rel="noopener noreferrer" aria-label="Facebook">
+                        <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                            <path d="M18 2h-3a5 5 0 0 0-5 5v3H7v4h3v8h4v-8h3l1-4h-4V7a1 1 0 0 1 1-1h3z"></path>
+                        </svg>
+                    </a>
+                    <a href="https://pinterest.com/emmafrostphotography" target="_blank" rel="noopener noreferrer" aria-label="Pinterest">
+                        <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                            <path d="M8 12a4 4 0 1 0 8 0a4 4 0 1 0 -8 0"></path>
+                            <path d="M12 4v4"></path>
+                            <path d="M4 8h4"></path>
+                            <path d="M16 8h4"></path>
+                            <path d="M8 16l8 -8"></path>
+                        </svg>
+                    </a>
+                </div>
+            </div>
+        </div>
+        
+        <div class="footer-bottom">
+            <div class="copyright">
+                <p>&copy; 2025 Emma Frost Photography. All rights reserved.</p>
+            </div>
+            <div class="footer-links">
+                <a href="privacy-policy.html">Privacy Policy</a>
+                <a href="terms-of-service.html">Terms of Service</a>
+            </div>
+        </div>
+    </footer>
+    
+    <!-- JavaScript -->
+    <script src="assets/js/navigation.js" defer></script>
+    <script src="assets/js/common.js" defer></script>
+    <script src="assets/js/theme-toggle.js" defer></script>
+    <script>
+        // FAQ Toggle
+        document.querySelectorAll('.faq-question').forEach(question => {
+            question.addEventListener('click', () => {
+                const answer = question.nextElementSibling;
+                const toggle = question.querySelector('.faq-toggle');
+                
+                if (answer.style.maxHeight) {
+                    answer.style.maxHeight = null;
+                    toggle.textContent = '+';
+                } else {
+                    answer.style.maxHeight = answer.scrollHeight + 'px';
+                    toggle.textContent = '−';
+                }
+            });
+        });
+        
+        // Simple form validation
+        document.getElementById('gallery-access-form').addEventListener('submit', function(event) {
+            event.preventDefault();
+            
+            const password = document.getElementById('gallery-password').value;
+            
+            if (password.trim() === '') {
+                alert('Please enter your gallery password');
+                return false;
+            }
+            
+            // In a real implementation, this would send the password to a server for validation
+            // For demo purposes, we'll just show an alert
+            alert('This is a demonstration. In a real implementation, this would authenticate and redirect to the client gallery.');
+        });
+    </script>
+</body>
+</html>

@@ -1,0 +1,485 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Contact | Emma Frost Photography</title>
+    <meta name="description" content="Get in touch with Emma Frost Photography for portrait, nature, and wildlife photography services in Fairfield, Maine.">
+    
+    <!-- Stylesheets -->
+    <link rel="stylesheet" href="assets/css/main.css">
+    <link rel="stylesheet" href="assets/css/responsive.css">
+    <link rel="stylesheet" href="assets/css/theme.css">
+    
+    <!-- Google Fonts - Playfair Display (serif) and Raleway (sans-serif) -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@400;500;600;700&family=Raleway:wght@300;400;500;600&display=swap" rel="stylesheet">
+    
+    <!-- Favicon -->
+    <link rel="icon" href="assets/images/ui/favicon.ico" type="image/x-icon">
+    
+    <!-- Form validation script -->
+    <script src="assets/js/form-validation.js" defer></script>
+</head>
+<body>
+    <!-- Site Header -->
+    <header id="site-header" class="header-container">
+        <div class="logo-container">
+            <a href="index.html" class="logo">
+                <img src="assets/images/ui/logo.svg" alt="Emma Frost Photography Logo" class="logo-light">
+                <img src="assets/images/ui/logo-dark.svg" alt="Emma Frost Photography Logo" class="logo-dark">
+            </a>
+        </div>
+        
+        <nav id="main-navigation" class="main-nav">
+            <button id="menu-toggle" class="menu-toggle" aria-label="Toggle navigation menu">
+                <span class="hamburger"></span>
+            </button>
+            
+            <ul class="nav-links">
+                <li><a href="index.html">Home</a></li>
+                <li class="dropdown">
+                    <a href="#" class="dropdown-toggle">Galleries</a>
+                    <div class="dropdown-menu">
+                        <div class="dropdown-section">
+                            <h3>Nature</h3>
+                            <ul>
+                                <li><a href="galleries/landscapes.html">Landscapes</a></li>
+                                <li><a href="galleries/wildlife.html">Wildlife</a></li>
+                                <li><a href="galleries/nature.html">Nature</a></li>
+                            </ul>
+                        </div>
+                        <div class="dropdown-section">
+                            <h3>Portraits</h3>
+                            <ul>
+                                <li><a href="galleries/portraits/maternity.html">Maternity</a></li>
+                                <li><a href="galleries/portraits/engagement.html">Engagement</a></li>
+                                <li><a href="galleries/portraits/families.html">Families</a></li>
+                                <li><a href="galleries/portraits/newborns.html">Newborns</a></li>
+                                <li><a href="galleries/portraits/seniors.html">Seniors</a></li>
+                                <li><a href="galleries/portraits/headshots.html">Headshots</a></li>
+                            </ul>
+                        </div>
+                    </div>
+                </li>
+                <li><a href="about.html">About</a></li>
+                <li><a href="pricing.html">Pricing</a></li>
+                <li><a href="client-gallery.html">Client Gallery</a></li>
+                <li><a href="contact.html" class="active">Contact</a></li>
+            </ul>
+        </nav>
+        
+        <div class="theme-toggle-container">
+            <button id="theme-toggle" class="theme-toggle" aria-label="Toggle light/dark theme">
+                <svg class="sun-icon" xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                    <circle cx="12" cy="12" r="5"></circle>
+                    <line x1="12" y1="1" x2="12" y2="3"></line>
+                    <line x1="12" y1="21" x2="12" y2="23"></line>
+                    <line x1="4.22" y1="4.22" x2="5.64" y2="5.64"></line>
+                    <line x1="18.36" y1="18.36" x2="19.78" y2="19.78"></line>
+                    <line x1="1" y1="12" x2="3" y2="12"></line>
+                    <line x1="21" y1="12" x2="23" y2="12"></line>
+                    <line x1="4.22" y1="19.78" x2="5.64" y2="18.36"></line>
+                    <line x1="18.36" y1="5.64" x2="19.78" y2="4.22"></line>
+                </svg>
+                <svg class="moon-icon" xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                    <path d="M21 12.79A9 9 0 1 1 11.21 3 7 7 0 0 0 21 12.79z"></path>
+                </svg>
+            </button>
+        </div>
+    </header>
+    
+    <!-- Main Content -->
+    <main>
+        <!-- Page Header -->
+        <section class="page-header">
+            <div class="container">
+                <h1>Contact Me</h1>
+                <p class="subtitle">Let's create something beautiful together</p>
+            </div>
+        </section>
+        
+        <!-- Contact Information Section -->
+        <section class="contact-section">
+            <div class="container">
+                <div class="contact-grid">
+                    <div class="contact-info">
+                        <h2>Get In Touch</h2>
+                        <p class="lead">I'd love to hear from you! Whether you're ready to book a session, have questions about my services, or just want to say hello – reach out anytime.</p>
+                        
+                        <div class="contact-methods">
+                            <div class="contact-method">
+                                <div class="icon-container">
+                                    <svg xmlns="http://www.w3.org/2000/svg" width="36" height="36" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                                        <path d="M4 4h16c1.1 0 2 .9 2 2v12c0 1.1-.9 2-2 2H4c-1.1 0-2-.9-2-2V6c0-1.1.9-2 2-2z"></path>
+                                        <polyline points="22,6 12,13 2,6"></polyline>
+                                    </svg>
+                                </div>
+                                <div class="contact-details">
+                                    <h3>Email</h3>
+                                    <a href="mailto:hello@emmafrostphotography.com">hello@emmafrostphotography.com</a>
+                                    <p>I typically respond within 24-48 hours.</p>
+                                </div>
+                            </div>
+                            
+                            <div class="contact-method">
+                                <div class="icon-container">
+                                    <svg xmlns="http://www.w3.org/2000/svg" width="36" height="36" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                                        <path d="M22 16.92v3a2 2 0 0 1-2.18 2 19.79 19.79 0 0 1-8.63-3.07 19.5 19.5 0 0 1-6-6 19.79 19.79 0 0 1-3.07-8.67A2 2 0 0 1 4.11 2h3a2 2 0 0 1 2 1.72 12.84 12.84 0 0 0 .7 2.81 2 2 0 0 1-.45 2.11L8.09 9.91a16 16 0 0 0 6 6l1.27-1.27a2 2 0 0 1 2.11-.45 12.84 12.84 0 0 0 2.81.7A2 2 0 0 1 22 16.92z"></path>
+                                    </svg>
+                                </div>
+                                <div class="contact-details">
+                                    <h3>Phone</h3>
+                                    <a href="tel:+12075551234">(207) 555-1234</a>
+                                    <p>Available Tuesday-Saturday, 9am-5pm EST.</p>
+                                </div>
+                            </div>
+                            
+                            <div class="contact-method">
+                                <div class="icon-container">
+                                    <svg xmlns="http://www.w3.org/2000/svg" width="36" height="36" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                                        <path d="M21 10c0 7-9 13-9 13s-9-6-9-13a9 9 0 0 1 18 0z"></path>
+                                        <circle cx="12" cy="10" r="3"></circle>
+                                    </svg>
+                                </div>
+                                <div class="contact-details">
+                                    <h3>Based In</h3>
+                                    <p>Fairfield, Maine</p>
+                                    <p>Serving the greater New England area.</p>
+                                </div>
+                            </div>
+                        </div>
+                        
+                        <div class="social-contact">
+                            <h3>Connect With Me</h3>
+                            <div class="social-links">
+                                <a href="https://instagram.com/emmafrostphotography" target="_blank" rel="noopener noreferrer" aria-label="Instagram">
+                                    <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                                        <rect x="2" y="2" width="20" height="20" rx="5" ry="5"></rect>
+                                        <path d="M16 11.37A4 4 0 1 1 12.63 8 4 4 0 0 1 16 11.37z"></path>
+                                        <line x1="17.5" y1="6.5" x2="17.51" y2="6.5"></line>
+                                    </svg>
+                                </a>
+                                <a href="https://facebook.com/emmafrostphotography" target="_blank" rel="noopener noreferrer" aria-label="Facebook">
+                                    <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                                        <path d="M18 2h-3a5 5 0 0 0-5 5v3H7v4h3v8h4v-8h3l1-4h-4V7a1 1 0 0 1 1-1h3z"></path>
+                                    </svg>
+                                </a>
+                                <a href="https://pinterest.com/emmafrostphotography" target="_blank" rel="noopener noreferrer" aria-label="Pinterest">
+                                    <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                                        <path d="M8 12a4 4 0 1 0 8 0a4 4 0 1 0 -8 0"></path>
+                                        <path d="M12 4v4"></path>
+                                        <path d="M4 8h4"></path>
+                                        <path d="M16 8h4"></path>
+                                        <path d="M8 16l8 -8"></path>
+                                    </svg>
+                                </a>
+                            </div>
+                        </div>
+                    </div>
+                    
+                    <div class="contact-form-container">
+                        <h2>Send a Message</h2>
+                        <form id="contact-form" class="contact-form" action="#" method="post">
+                            <div class="form-success" id="form-success" style="display: none;">
+                                <p>Thank you for your message! I'll be in touch with you soon.</p>
+                            </div>
+                            
+                            <div class="form-error" id="form-error" style="display: none;">
+                                <p>There was an error sending your message. Please try again or contact me directly via email or phone.</p>
+                            </div>
+                            
+                            <div class="form-row">
+                                <div class="form-group">
+                                    <label for="name" class="required">Name</label>
+                                    <input type="text" id="name" name="name" required>
+                                </div>
+                                
+                                <div class="form-group">
+                                    <label for="email" class="required">Email</label>
+                                    <input type="email" id="email" name="email" required>
+                                </div>
+                            </div>
+                            
+                            <div class="form-group">
+                                <label for="phone">Phone (Optional)</label>
+                                <input type="tel" id="phone" name="phone">
+                            </div>
+                            
+                            <div class="form-group">
+                                <label for="subject" class="required">Subject</label>
+                                <select id="subject" name="subject" required>
+                                    <option value="" disabled selected>Select an option</option>
+                                    <option value="portrait-session">Portrait Session Inquiry</option>
+                                    <option value="nature-prints">Nature/Wildlife Print Inquiry</option>
+                                    <option value="client-gallery">Client Gallery Support</option>
+                                    <option value="availability">Check Availability</option>
+                                    <option value="other">Other</option>
+                                </select>
+                            </div>
+                            
+                            <div class="form-group">
+                                <label for="message" class="required">Message</label>
+                                <textarea id="message" name="message" required></textarea>
+                            </div>
+                            
+                            <div class="form-group checkbox-group">
+                                <input type="checkbox" id="newsletter" name="newsletter">
+                                <label for="newsletter">Subscribe to my newsletter for seasonal mini-sessions and special offers</label>
+                            </div>
+                            
+                            <div class="form-group">
+                                <button type="submit" class="cta-button primary">Send Message</button>
+                            </div>
+                        </form>
+                    </div>
+                </div>
+            </div>
+        </section>
+        
+        <!-- FAQ Section -->
+        <section class="faq-section">
+            <div class="container">
+                <div class="section-header centered">
+                    <h2>Frequently Asked Questions</h2>
+                    <p>Quick answers to common questions</p>
+                </div>
+                
+                <div class="faq-container">
+                    <div class="faq-item">
+                        <div class="faq-question">
+                            <h3>How far in advance should I book a photography session?</h3>
+                            <span class="faq-toggle">+</span>
+                        </div>
+                        <div class="faq-answer">
+                            <p>For portrait sessions, I recommend booking 4-6 weeks in advance to ensure your preferred date and time. Fall sessions and spring mini-sessions tend to book up quickly, often 2-3 months in advance. For newborn sessions, the best time to book is during your second trimester to guarantee availability around your due date.</p>
+                        </div>
+                    </div>
+                    
+                    <div class="faq-item">
+                        <div class="faq-question">
+                            <h3>What happens if it rains on the day of our outdoor session?</h3>
+                            <span class="faq-toggle">+</span>
+                        </div>
+                        <div class="faq-answer">
+                            <p>Don't worry! I always keep a close eye on the weather forecast and will contact you 24-48 hours before your session if inclement weather is expected. We can either reschedule for a different day or, depending on your preference, adapt to an indoor location. I'm very flexible when it comes to weather-related rescheduling.</p>
+                        </div>
+                    </div>
+                    
+                    <div class="faq-item">
+                        <div class="faq-question">
+                            <h3>Do you travel for photography sessions?</h3>
+                            <span class="faq-toggle">+</span>
+                        </div>
+                        <div class="faq-answer">
+                            <p>Absolutely! I serve the greater New England area and am happy to travel to your preferred location. Sessions within 30 miles of Fairfield, Maine are included in the standard session fee. For locations beyond that radius, a small travel fee applies based on distance. For destination sessions outside of New England, please contact me for a custom quote.</p>
+                        </div>
+                    </div>
+                    
+                    <div class="faq-item">
+                        <div class="faq-question">
+                            <h3>How and when do I pay for my photography session?</h3>
+                            <span class="faq-toggle">+</span>
+                        </div>
+                        <div class="faq-answer">
+                            <p>A 50% non-refundable retainer is required at the time of booking to secure your session date and time. The remaining balance is due one week prior to your session. I accept payment via credit card, Venmo, or bank transfer. After your initial inquiry, I'll send a digital booking proposal that includes all payment details and makes it easy to complete your booking online.</p>
+                        </div>
+                    </div>
+                    
+                    <div class="faq-item">
+                        <div class="faq-question">
+                            <h3>How long until I receive my photos?</h3>
+                            <span class="faq-toggle">+</span>
+                        </div>
+                        <div class="faq-answer">
+                            <p>Your online gallery will be delivered within 2-3 weeks of your session date. During peak seasons (fall and spring), delivery may take up to 4 weeks. For weddings and events, the timeline is 4-6 weeks. If you need images by a specific deadline, please let me know in advance, and I'll do my best to accommodate rush requests.</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+        
+        <!-- Map Section -->
+        <section class="map-section">
+            <div class="container">
+                <div class="section-header centered">
+                    <h2>Where to Find Me</h2>
+                    <p>Based in beautiful Fairfield, Maine</p>
+                </div>
+                
+                <div class="map-container">
+                    <iframe src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d92500.93872292782!2d-69.66466861744281!3d44.58853813622114!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x4cb1e1720fe3f95d%3A0x83d1f6e56a3be259!2sFairfield%2C%20ME!5e0!3m2!1sen!2sus!4v1620401045876!5m2!1sen!2sus" width="100%" height="450" style="border:0;" allowfullscreen="" loading="lazy"></iframe>
+                </div>
+                
+                <div class="location-info">
+                    <p>While I'm based in Fairfield, I regularly serve clients throughout Maine, including Portland, Augusta, Bangor, Bar Harbor, and the surrounding areas. I'm also available for sessions in neighboring New England states.</p>
+                </div>
+            </div>
+        </section>
+        
+        <!-- Session Booking CTA -->
+        <section class="cta-section">
+            <div class="cta-content">
+                <h2>Ready to Book Your Session?</h2>
+                <p>Let's create beautiful memories together</p>
+                <div class="cta-buttons">
+                    <a href="pricing.html" class="cta-button secondary">View Pricing</a>
+                    <a href="#contact-form" class="cta-button primary">Contact Me</a>
+                </div>
+            </div>
+        </section>
+    </main>
+    
+    <!-- Site Footer -->
+    <footer id="site-footer" class="footer-container">
+        <div class="footer-content">
+            <div class="footer-logo">
+                <img src="assets/images/ui/logo-footer.svg" alt="Emma Frost Photography Logo">
+            </div>
+            
+            <div class="footer-nav">
+                <div class="footer-col">
+                    <h4>Navigation</h4>
+                    <ul>
+                        <li><a href="index.html">Home</a></li>
+                        <li><a href="about.html">About</a></li>
+                        <li><a href="pricing.html">Pricing</a></li>
+                        <li><a href="client-gallery.html">Client Gallery</a></li>
+                        <li><a href="contact.html">Contact</a></li>
+                    </ul>
+                </div>
+                
+                <div class="footer-col">
+                    <h4>Galleries</h4>
+                    <ul>
+                        <li><a href="galleries/landscapes.html">Landscapes</a></li>
+                        <li><a href="galleries/wildlife.html">Wildlife</a></li>
+                        <li><a href="galleries/portraits/families.html">Families</a></li>
+                        <li><a href="galleries/portraits/maternity.html">Maternity</a></li>
+                        <li><a href="galleries/portraits/engagement.html">Engagement</a></li>
+                    </ul>
+                </div>
+                
+                <div class="footer-col">
+                    <h4>Contact</h4>
+                    <address>
+                        <p>Fairfield, Maine</p>
+                        <p><a href="mailto:hello@emmafrostphotography.com">hello@emmafrostphotography.com</a></p>
+                        <p><a href="tel:+12075551234">(207) 555-1234</a></p>
+                    </address>
+                </div>
+            </div>
+            
+            <div class="footer-social">
+                <h4>Follow Me</h4>
+                <div class="social-links">
+                    <a href="https://instagram.com/emmafrostphotography" target="_blank" rel="noopener noreferrer" aria-label="Instagram">
+                        <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                            <rect x="2" y="2" width="20" height="20" rx="5" ry="5"></rect>
+                            <path d="M16 11.37A4 4 0 1 1 12.63 8 4 4 0 0 1 16 11.37z"></path>
+                            <line x1="17.5" y1="6.5" x2="17.51" y2="6.5"></line>
+                        </svg>
+                    </a>
+                    <a href="https://facebook.com/emmafrostphotography" target="_blank" rel="noopener noreferrer" aria-label="Facebook">
+                        <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                            <path d="M18 2h-3a5 5 0 0 0-5 5v3H7v4h3v8h4v-8h3l1-4h-4V7a1 1 0 0 1 1-1h3z"></path>
+                        </svg>
+                    </a>
+                    <a href="https://pinterest.com/emmafrostphotography" target="_blank" rel="noopener noreferrer" aria-label="Pinterest">
+                        <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                            <path d="M8 12a4 4 0 1 0 8 0a4 4 0 1 0 -8 0"></path>
+                            <path d="M12 4v4"></path>
+                            <path d="M4 8h4"></path>
+                            <path d="M16 8h4"></path>
+                            <path d="M8 16l8 -8"></path>
+                        </svg>
+                    </a>
+                </div>
+            </div>
+        </div>
+        
+        <div class="footer-bottom">
+            <div class="copyright">
+                <p>&copy; 2025 Emma Frost Photography. All rights reserved.</p>
+            </div>
+            <div class="footer-links">
+                <a href="privacy-policy.html">Privacy Policy</a>
+                <a href="terms-of-service.html">Terms of Service</a>
+            </div>
+        </div>
+    </footer>
+    
+    <!-- JavaScript -->
+    <script src="assets/js/navigation.js" defer></script>
+    <script src="assets/js/common.js" defer></script>
+    <script src="assets/js/theme-toggle.js" defer></script>
+    <script>
+        // FAQ Toggle
+        document.querySelectorAll('.faq-question').forEach(question => {
+            question.addEventListener('click', () => {
+                const answer = question.nextElementSibling;
+                const toggle = question.querySelector('.faq-toggle');
+                
+                if (answer.style.maxHeight) {
+                    answer.style.maxHeight = null;
+                    toggle.textContent = '+';
+                } else {
+                    answer.style.maxHeight = answer.scrollHeight + 'px';
+                    toggle.textContent = '−';
+                }
+            });
+        });
+        
+        // Form Validation and Submission
+        document.getElementById('contact-form').addEventListener('submit', function(event) {
+            event.preventDefault();
+            
+            const name = document.getElementById('name').value;
+            const email = document.getElementById('email').value;
+            const subject = document.getElementById('subject').value;
+            const message = document.getElementById('message').value;
+            
+            // Basic validation
+            if (name.trim() === '' || email.trim() === '' || subject === '' || message.trim() === '') {
+                alert('Please fill in all required fields.');
+                return false;
+            }
+            
+            // Email validation
+            const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+            if (!emailRegex.test(email)) {
+                alert('Please enter a valid email address.');
+                return false;
+            }
+            
+            // In a real implementation, this would send the form data to a server
+            // For demo purposes, we'll just show the success message
+            const formSuccess = document.getElementById('form-success');
+            formSuccess.style.display = 'block';
+            
+            // Scroll to success message
+            formSuccess.scrollIntoView({ behavior: 'smooth' });
+            
+            // Reset form
+            this.reset();
+            
+            // Hide success message after 5 seconds
+            setTimeout(() => {
+                formSuccess.style.display = 'none';
+            }, 5000);
+        });
+        
+        // Smooth scroll to form when "Contact Me" button is clicked
+        document.querySelectorAll('a[href="#contact-form"]').forEach(anchor => {
+            anchor.addEventListener('click', function(e) {
+                e.preventDefault();
+                
+                document.querySelector(this.getAttribute('href')).scrollIntoView({
+                    behavior: 'smooth'
+                });
+            });
+        });
+    </script>
+</body>
+</html>
