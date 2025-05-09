@@ -12,6 +12,7 @@ document.addEventListener('DOMContentLoaded', function() {
     const config = {
         imagePath: 'assets/images/slideshow/',
         imageList: [
+            '240_F_1449651390_JuvdgScjBVIWsJ45yCNH5y1hecY6i3SE.jpg',
             'slideshow.jpg',
             'test.jpg'
         ],
