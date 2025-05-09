@@ -12,7 +12,8 @@ document.addEventListener('DOMContentLoaded', function() {
     const config = {
         imagePath: 'assets/images/slideshow/',
         imageList: [
-            'placeholder.jpg'
+            'slideshow.jpg',
+            'test.jpg'
         ],
         slideDuration: 5000 // Time in milliseconds between transitions
     };
