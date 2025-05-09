@@ -1,7 +1,6 @@
 /**
  * Simple Photo Slideshow
- * This is a standalone solution that doesn't rely on generate-image-arrays.js
- * It will find images in the slideshow directory directly
+ * Displays all images in a directory as a slideshow without any text
  */
 document.addEventListener('DOMContentLoaded', function() {
     const slideshowContainer = document.querySelector('.slideshow-container');
@@ -9,92 +8,27 @@ document.addEventListener('DOMContentLoaded', function() {
     // Exit if slideshow container doesn't exist on this page
     if (!slideshowContainer) return;
     
-    // Default images to use if no images are found in the slideshow directory
-    const fallbackImages = [
-        'placeholder-1.jpg',
-        'placeholder-2.jpg',
-        'placeholder-3.jpg'
-    ];
-    
-    // Configuration
+    // Simple configuration - this would normally be auto-generated
     const config = {
         imagePath: 'assets/images/slideshow/',
-        // We'll populate this dynamically
-        imageList: [],
+        // Placeholder images - replace these with your actual image filenames
+        imageList: [
+            'slide1.jpg',
+            'slide2.jpg',
+            'slide3.jpg',
+            'slide4.jpg'
+        ],
         slideDuration: 5000 // Time in milliseconds between transitions
     };
     
-    // Function to scan the slideshow directory for images
-    function findSlideshowImages() {
-        // In the real world, this would be done server-side
-        // For now, we'll check for common file extensions
-        const commonFileNames = [
-            'hero-1.jpg', 'hero-2.jpg', 'hero-3.jpg', 'hero-4.jpg', 'hero-5.jpg',
-            'slide-1.jpg', 'slide-2.jpg', 'slide-3.jpg', 'slide-4.jpg', 'slide-5.jpg',
-            'slideshow-1.jpg', 'slideshow-2.jpg', 'slideshow-3.jpg', 'slideshow-4.jpg',
-            'image-1.jpg', 'image-2.jpg', 'image-3.jpg', 'image-4.jpg',
-            'photo-1.jpg', 'photo-2.jpg', 'photo-3.jpg', 'photo-4.jpg',
-            'landscape-1.jpg', 'landscape-2.jpg', 'landscape-3.jpg',
-            'portrait-1.jpg', 'portrait-2.jpg', 'portrait-3.jpg'
-        ];
-        
-        // Also check with different extensions
-        const extensionsToCheck = ['.jpg', '.jpeg', '.png', '.webp'];
-        
-        // Create a promises array to check image existence
-        const checkPromises = [];
-        
-        // Check each possible image name
-        commonFileNames.forEach(fileName => {
-            // Also check different extensions for each file name
-            extensionsToCheck.forEach(ext => {
-                const baseFileName = fileName.split('.')[0];
-                const fullFileName = baseFileName + ext;
-                
-                const promise = new Promise((resolve) => {
-                    const img = new Image();
-                    img.onload = function() {
-                        resolve(fullFileName);
-                    };
-                    img.onerror = function() {
-                        resolve(null);
-                    };
-                    img.src = config.imagePath + fullFileName;
-                });
-                
-                checkPromises.push(promise);
-            });
-        });
-        
-        // Wait for all checks to complete
-        return Promise.all(checkPromises).then(results => {
-            // Filter out null results (images that don't exist)
-            const foundImages = results.filter(result => result !== null);
-            
-            // Use found images or fallback
-            config.imageList = foundImages.length > 0 ? foundImages : fallbackImages;
-            
-            // Generate the slideshow
-            generateSimpleSlideshow(config);
-            
-            // Initialize slideshow functionality
-            initializeSlideshow(config.slideDuration);
-            
-            // Hide loading container once we're done
-            const loadingContainer = document.querySelector('.loading-container');
-            if (loadingContainer) {
-                loadingContainer.style.display = 'none';
-            }
-            
-            // Dispatch an event to indicate slideshow is ready
-            document.dispatchEvent(new Event('slideshowInitialized'));
-            
-            console.log('Slideshow initialized with images:', config.imageList);
-        });
-    }
+    // Generate slideshow HTML
+    generateSimpleSlideshow(config);
     
-    // Start the process
-    findSlideshowImages();
+    // Initialize slideshow functionality
+    initializeSlideshow(config.slideDuration);
+    
+    // Dispatch event to hide loading screen
+    document.dispatchEvent(new Event('slideshowInitialized'));
 });
 
 /**
@@ -103,15 +37,11 @@ document.addEventListener('DOMContentLoaded', function() {
 function generateSimpleSlideshow(config) {
     const slideshowContainer = document.querySelector('.slideshow-container');
     
-    // Keep loading container if it exists
-    const loadingContainer = slideshowContainer.querySelector('.loading-container');
-    
-    // Clear other content
+    // Clear existing content except loading screen
+    const loadingScreen = slideshowContainer.querySelector('.loading-container');
     slideshowContainer.innerHTML = '';
-    
-    // Add back loading container
-    if (loadingContainer) {
-        slideshowContainer.appendChild(loadingContainer);
+    if (loadingScreen) {
+        slideshowContainer.appendChild(loadingScreen);
     }
     
     // Create slides
@@ -119,16 +49,15 @@ function generateSimpleSlideshow(config) {
         const slideElement = document.createElement('div');
         slideElement.className = 'slide';
         if (index === 0) {
-            slideElement.style.display = 'block'; // Make first slide visible
+            slideElement.classList.add('active');
         }
+        
+        // Handle missing images with placeholder
+        const imgSrc = config.imagePath + image;
         
         // Create simple image slide with no text
         slideElement.innerHTML = `
-            <img src="${config.imagePath}${image}" alt="Slideshow image ${index + 1}">
-            <div class="slide-content">
-                <h1>Capturing Life's Beautiful Moments</h1>
-                <p>Modern farmhouse-inspired photography in Maine</p>
-            </div>
+            <img src="${imgSrc}" alt="Slideshow image" onerror="this.src='assets/images/ui/placeholder.jpg'">
         `;
         
         // Add to container
@@ -171,7 +100,7 @@ function generateSimpleSlideshow(config) {
  * Initialize slideshow functionality
  */
 function initializeSlideshow(slideDuration) {
-    let slideIndex = 1;
+    let slideIndex = 0;
     let slideshowInterval;
     
     const slides = document.getElementsByClassName('slide');
@@ -181,7 +110,7 @@ function initializeSlideshow(slideDuration) {
     
     // Exit if no slides found
     if (slides.length === 0) {
-        console.error('No slides found!');
+        console.error('No slides found in slideshow');
         return;
     }
     
@@ -199,9 +128,7 @@ function initializeSlideshow(slideDuration) {
     
     // Add event listeners to indicators
     for (let i = 0; i < indicators.length; i++) {
-        indicators[i].addEventListener('click', function() {
-            currentSlide(i + 1);
-        });
+        indicators[i].addEventListener('click', () => currentSlide(i));
     }
     
     // Add pause/resume on hover
@@ -212,10 +139,10 @@ function initializeSlideshow(slideDuration) {
     // Function to show slides
     function showSlides(n) {
         // Reset slideIndex if out of bounds
-        if (n > slides.length) {
-            slideIndex = 1;
-        } else if (n < 1) {
-            slideIndex = slides.length;
+        if (n >= slides.length) {
+            slideIndex = 0;
+        } else if (n < 0) {
+            slideIndex = slides.length - 1;
         } else {
             slideIndex = n;
         }
@@ -232,24 +159,24 @@ function initializeSlideshow(slideDuration) {
         }
         
         // Show current slide
-        slides[slideIndex - 1].style.display = 'block';
-        slides[slideIndex - 1].setAttribute('aria-hidden', 'false');
+        slides[slideIndex].style.display = 'block';
+        slides[slideIndex].setAttribute('aria-hidden', 'false');
         
         if (indicators.length) {
-            indicators[slideIndex - 1].classList.add('active');
-            indicators[slideIndex - 1].setAttribute('aria-selected', 'true');
+            indicators[slideIndex].classList.add('active');
+            indicators[slideIndex].setAttribute('aria-selected', 'true');
         }
     }
     
     // Function to change slides
     function plusSlides(n) {
-        showSlides(slideIndex += n);
+        showSlides(slideIndex + n);
         resetSlideshowInterval();
     }
     
     // Function to set current slide
     function currentSlide(n) {
-        showSlides(slideIndex = n);
+        showSlides(n);
         resetSlideshowInterval();
     }
     
@@ -299,24 +226,4 @@ function initializeSlideshow(slideDuration) {
             plusSlides(-1);
         }
     }
-    
-    // Add keyboard navigation support
-    document.addEventListener('keydown', function(e) {
-        // Only handle keyboard navigation when slideshow is in view
-        const rect = slideshowContainer.getBoundingClientRect();
-        const isInView = (
-            rect.top >= 0 &&
-            rect.left >= 0 &&
-            rect.bottom <= (window.innerHeight || document.documentElement.clientHeight) &&
-            rect.right <= (window.innerWidth || document.documentElement.clientWidth)
-        );
-        
-        if (isInView) {
-            if (e.key === 'ArrowLeft') {
-                plusSlides(-1);
-            } else if (e.key === 'ArrowRight') {
-                plusSlides(1);
-            }
-        }
-    });
 }
