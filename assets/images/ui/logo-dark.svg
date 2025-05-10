@@ -1,2 +1,20 @@
-<?xml version="1.0" encoding="utf-8" ?>
-<svg baseProfile="full" height="332" version="1.1" width="888" xmlns="http://www.w3.org/2000/svg" xmlns:ev="http://www.w3.org/2001/xml-events" xmlns:xlink="http://www.w3.org/1999/xlink"><defs /><path d="M 0,0 L 0,331 L 887,331 L 887,0 Z" fill="white" stroke="none" /></svg>
+<svg width="500" height="120" viewBox="0 0 500 120" xmlns="http://www.w3.org/2000/svg">
+  <style>
+    .name { font-family: 'Georgia', serif; font-size: 36px; fill: #333333; }
+    .tagline { font-family: 'Arial', sans-serif; font-size: 14px; fill: #555555; letter-spacing: 2px; }
+    .line { stroke: #555555; stroke-width: 1; }
+    .camera-body { fill: #333333; }
+    .camera-lens { fill: #555555; }
+  </style>
+  
+  <!-- Camera icon on the left -->
+  <rect x="10" y="30" width="40" height="30" rx="4" class="camera-body" />
+  <circle cx="30" cy="45" r="8" class="camera-lens" />
+  <rect x="18" y="25" width="24" height="6" rx="2" class="camera-body" />
+  
+  <!-- Name and tagline -->
+  <text x="60" y="50" class="name">Bethany Hoyt</text>
+  <line x1="60" y1="60" x2="400" y2="60" class="line" />
+  <text x="60" y="85" class="tagline">PHOTOGRAPHY</text>
+</svg>
+"""
