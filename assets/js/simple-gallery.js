@@ -70,7 +70,7 @@ function getImageListForGallery(galleryType) {
     // These arrays are automatically updated by the build script
     const galleryImages = {
         'landscapes': [
-            'placeholder.jpg'
+            'trees.jpg'
         ],
         'wildlife': [
             'placeholder.jpg'
@@ -125,10 +125,15 @@ function generateSimpleGalleryItems(config) {
             galleryItem.className = 'gallery-item';
             
             // Create simple gallery item HTML without categories or captions
+            // Use appropriate error placeholder path based on depth level
+            const errorImagePath = config.basePath.includes('../../') ? 
+                '../../assets/images/ui/placeholder.jpg' : 
+                '../assets/images/ui/placeholder.jpg';
+                
             galleryItem.innerHTML = `
                 <a href="${config.basePath}${image}" class="lightbox-trigger">
                     <img src="${config.basePath}${image}" alt="Gallery image" loading="lazy"
-                         onerror="this.src='../../assets/images/ui/placeholder.jpg'">
+                         onerror="this.src='${errorImagePath}'">
                 </a>
             `;
             
