@@ -14,7 +14,8 @@ document.addEventListener('DOMContentLoaded', function() {
         imageList: [
             '240_F_1449651390_JuvdgScjBVIWsJ45yCNH5y1hecY6i3SE.jpg',
             'slideshow.jpg',
-            'test.jpg'
+            'test.jpg',
+            'trees.jpg'
         ],
         slideDuration: 5000 // Time in milliseconds between transitions
     };
