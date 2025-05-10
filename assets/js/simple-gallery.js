@@ -54,12 +54,8 @@ function getGalleryTypeFromPath() {
  * Get base path for gallery images based on gallery type
  */
 function getBasePath(galleryType) {
-    // Handle the different depth levels in the URL structure
-    if (galleryType.includes('/')) {
-        return '../../assets/images/galleries/' + galleryType + '/';
-    } else {
-        return '../assets/images/galleries/' + galleryType + '/';
-    }
+    // All galleries are at the same path level now
+    return '../assets/images/galleries/' + galleryType + '/';
 }
 
 /**
@@ -128,7 +124,7 @@ function generateSimpleGalleryItems(config) {
             galleryItem.innerHTML = `
                 <a href="${config.basePath}${image}" class="lightbox-trigger">
                     <img src="${config.basePath}${image}" alt="Gallery image" loading="lazy"
-                         onerror="this.src='../../assets/images/ui/placeholder.jpg'">
+                         onerror="this.src='../assets/images/ui/placeholder.jpg'">
                 </a>
             `;
             
